@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context=".MenuActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:lottie_rawRes="@raw/money_fall_pull"
+        android:scaleType="fitStart"
+        android:layout_weight="0.99"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_weight="0.01"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <!-- 내부테스트용버튼 지우면 활성화할것
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.5" />
+            -->
+        <!-- 내부테스트용 버튼 -->
+        <Button
+            android:id="@+id/menu_btn_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_box"
+            android:layout_weight="0.15"
+            android:text="홈"
+            android:layout_marginRight="1dp"
+            android:textColor="#FFFFFF"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/menu_btn_preview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_box"
+            android:layout_weight="0.25"
+            android:layout_marginRight="1dp"
+            android:text="이전
+            회차"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/menu_btn_qr"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_box"
+            android:layout_marginRight="1dp"
+            android:layout_weight="0.3"
+            android:text="QR
+            당첨확인"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/menu_btn_number"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_box"
+            android:layout_weight="0.3"
+            android:text="길한
+            번호"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
