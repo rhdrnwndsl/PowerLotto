@@ -3,6 +3,7 @@ package com.jiw.powerlotto;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,6 +25,9 @@ import java.util.Map;
  * 이전회차들(모든회차) 당첨번호 표시. 하단 광고바(모든화면에 하단광고바가 표시)
  */
 public class PreviewActivity extends AppCompatActivity {
+
+    String TAG = this.getClass().getName();
+    int mPreviewComplete = 0;
 
     JsonObject jsonObject;
     RequestQueue requestQueue;
@@ -104,5 +108,21 @@ public class PreviewActivity extends AppCompatActivity {
         };
         request.setShouldCache(false);
         requestQueue.add(request);
+    }
+
+    //뒤로가기 버튼 눌렀을 때
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent();
+        if(mPreviewComplete == 1)
+        {
+            intent.putExtra("result","Completed");
+        } else {
+            intent.putExtra("result","Cancelled");
+        }
+        setResult(101, intent);
+        finish();
+        return;
     }
 }

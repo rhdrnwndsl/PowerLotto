@@ -12,7 +12,7 @@ import android.widget.Toast;
  * 이번주 당첨번호 표시. 하단 버튼 표시. 당신의 길일 체크(로또사는날). 하단 광고바(모든화면에 하단광고바가 표시)
  */
 public class MenuActivity extends AppCompatActivity {
-
+    String TAG = this.getClass().getName();
     Button mBtnHome, mBtnPre, mBtnQr, mBtnNum;
 
     @Override

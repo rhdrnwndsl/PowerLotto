@@ -123,12 +123,12 @@ public class ListModel {
         return date;
     }
 
-    public ArrayList getAnswerNumberList()
+    public ArrayList<Integer> getAnswerNumberList()
     {
         return answerNumberList;
     }
 
-    public ArrayList getDetailModelArrayList()
+    public ArrayList<DetailModel> getDetailModelArrayList()
     {
         return detailModelArrayList;
     }
@@ -148,6 +148,21 @@ public class ListModel {
             }
         }
         return false;
+    }
+
+    public String getUrl()
+    {
+        return url;
+    }
+
+    public void setId(long _id)
+    {
+        id = _id;
+    }
+
+    public long getId()
+    {
+        return id;
     }
 
 }

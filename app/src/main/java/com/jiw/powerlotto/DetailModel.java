@@ -8,6 +8,7 @@ import java.util.Collections;
 
 public class DetailModel {
 
+    long id;
     String seq;
     String result;
     ArrayList<Integer> numberList = new ArrayList<>();
@@ -51,8 +52,9 @@ public class DetailModel {
         return result;
     }
 
-    public ArrayList getNumberList()
+    public ArrayList<Integer> getNumberList()
     {
         return numberList;
     }
+
 }
