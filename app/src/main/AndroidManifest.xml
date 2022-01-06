@@ -19,8 +19,9 @@
             android:exported="false" />
         <activity
             android:name=".QR_CheckActivity"
-            android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation"
+            android:exported="false" />
+        <activity
+            android:name=".QR_ResultActivity"
             android:exported="false" />
         <activity
             android:name=".PreviewActivity"
