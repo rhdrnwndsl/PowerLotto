@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -27,15 +29,17 @@ import java.util.Map;
 public class PreviewActivity extends AppCompatActivity {
 
     String TAG = this.getClass().getName();
-    int mPreviewComplete = 0;
+    /** sqlite에 저장된 최근무결성검사 10개를 리스트로 화면에 구성한다 */
+    ListView listview ;
+    /** 위 listview 에 연계되는 adapter 해당 리스트들의 각각의 데이터들의 위치 리스트추가 등의 기능을 수행한다다*/
+    ListPreviewAdapter adapter;
+    PowerSDK mPowerSdk;
 
-    JsonObject jsonObject;
-    RequestQueue requestQueue;
-    String no1, no2, no3, no4, no5, no6, bonus, url;
-    int drwNo;
     Context _ctx;
 
     boolean loop = true;    //에러가 나올 때까지 루프를 돌아서 당첨번호를 모은다
+
+    Button m_btn_preview_exit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,80 +51,51 @@ public class PreviewActivity extends AppCompatActivity {
 
     private void init()
     {
-        url = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=";
+        adapter = new ListPreviewAdapter();
+        listview = (ListView) findViewById(R.id.list_preview_all);
+        listview.setAdapter(adapter);
+        mPowerSdk = PowerSDK.getInstance();
 
-        if(requestQueue == null){
-            requestQueue = Volley.newRequestQueue(getApplicationContext());
-        }
+        m_btn_preview_exit = findViewById(R.id.btn_preview_exit);
+        m_btn_preview_exit.setOnClickListener(v->{
+            Intent intent = new Intent();
+            intent.putExtra("result","Completed");
+            setResult(101, intent);
+            finish();
+            return;
+        });
 
-        for(int i = 1; i < 5000; i++)
-        {
-            if ( loop ) {
-                All_Preview_Number(i);
-            } else {
-                break;
-            }
-        }
+        UpdateList();
     }
 
-    private void All_Preview_Number(int d)
+    /**
+     * DB에서 로또 회차정보를 가져와서 ListView 에 업데이트 시킨다.
+     */
+    private void UpdateList()
     {
-        StringRequest request = new StringRequest(Request.Method.GET, url + String.valueOf(d), new Response.Listener<String>()
-        {
-            @Override
-            public void onResponse(String response)
-            {
-                jsonObject = (JsonObject) JsonParser.parseString(response);
+        adapter = new ListPreviewAdapter();
+        String [] data = mPowerSdk.SelectData(Database.DB_ALLCOMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
 
-                if (response.contains("fail"))
-                {
-                    loop = false;
-                    return;
-                }
-                if (jsonObject == null) {
-                    loop = false;
-                    return;
-                }
-                drwNo = d;
-                no1 = "당첨번호 1 - " + jsonObject.get("drwtNo1");
-                no2 = "당첨번호 2 - " + jsonObject.get("drwtNo2");
-                no3 = "당첨번호 3 - " + jsonObject.get("drwtNo3");
-                no4 = "당첨번호 4 - " + jsonObject.get("drwtNo4");
-                no5 = "당첨번호 5 - " + jsonObject.get("drwtNo5");
-                no6 = "당첨번호 6 - " + jsonObject.get("drwtNo6");
-                bonus = "보너스 - " + jsonObject.get("bnusNo");
-                Log.d("당첨번호", drwNo + "회차 당첨번호 : " + no1 + ", " + no2 + ", "
-                        + no3 + ", " + no4 + ", " + no5 + ", " + no6 + ", " + bonus);
-            }
-        }, new Response.ErrorListener()
+        if(data!=null)
         {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                loop = false;
-                Log.d("회차검색실패 : ", error.getLocalizedMessage());
+            for(String n:data)
+            {
+                String[] tmp = n.split(",");
+                adapter.addItem(tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7]);
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                return params;
-            }
-        };
-        request.setShouldCache(false);
-        requestQueue.add(request);
+        }
+
+        listview.setAdapter(adapter);
+
     }
+
+
 
     //뒤로가기 버튼 눌렀을 때
     @Override
     public void onBackPressed() {
-
         Intent intent = new Intent();
-        if(mPreviewComplete == 1)
-        {
-            intent.putExtra("result","Completed");
-        } else {
-            intent.putExtra("result","Cancelled");
-        }
+        intent.putExtra("result","Completed");
         setResult(101, intent);
         finish();
         return;
