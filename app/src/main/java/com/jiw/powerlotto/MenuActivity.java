@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class MenuActivity extends AppCompatActivity {
     String TAG = this.getClass().getName();
-    Button mBtnHome, mBtnPre, mBtnQr, mBtnNum;
+    Button mBtnSort, mBtnPre, mBtnQr, mBtnNum;
     PowerSDK mPowerSDK;
     ArrayList<ListModel> listModelArrayList;
     ListAdapter listAdapter;
@@ -33,14 +33,11 @@ public class MenuActivity extends AppCompatActivity {
     private void init()
     {
         mPowerSDK = PowerSDK.getInstance();
-        mBtnHome = findViewById(R.id.menu_btn_home);
+        mBtnSort = findViewById(R.id.menu_btn_sort);
         mBtnPre = findViewById(R.id.menu_btn_preview);
         mBtnQr = findViewById(R.id.menu_btn_qr);
         mBtnNum = findViewById(R.id.menu_btn_number);
 
-        mBtnHome.setOnClickListener(v->{
-
-        });
         mBtnPre.setOnClickListener(v->{
             Intent intent = new Intent(getApplicationContext(), PreviewActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -57,27 +54,33 @@ public class MenuActivity extends AppCompatActivity {
             startActivityForResult(intent, 103);
         });
 
+        mBtnSort.setOnClickListener(v->{
+            Intent intent = new Intent(getApplicationContext(), NumberSortingActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivityForResult(intent, 104);
+        });
+
         UpdateList();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-
-
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//
+//
+//    }
 
     private void UpdateList()
     {
@@ -143,6 +146,18 @@ public class MenuActivity extends AppCompatActivity {
             else
             {
                 Toast.makeText(getApplicationContext(), "번호생성 화면으로부터 받은 응답 : ", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        else if (requestCode == 104) {
+            if (data != null)
+            {
+                String result = data.getStringExtra("result");
+                Toast.makeText(getApplicationContext(),"번호통계 화면으로부터 받은 응답 : " + result, Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "번호통계 화면으로부터 받은 응답 : ", Toast.LENGTH_LONG).show();
             }
         }
     }

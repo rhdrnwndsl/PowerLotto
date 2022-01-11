@@ -46,6 +46,8 @@ public class Database {
                     "drwNo INTEGER,no1 VARCHAR(2),no2 VARCHAR(2),no3 VARCHAR(2),no4 VARCHAR(2),no5 VARCHAR(2),no6 VARCHAR(2)," +
                     "bonus VARCHAR(2)); ";
             mSqliteDB.execSQL(Create);
+
+
         }
         catch (SQLiteException ex)
         {
@@ -70,6 +72,45 @@ public class Database {
                 " values ('"+ _drwNo + "','" + _no1 + "','" + _no2 + "','" + _no3 + "'," +
                 "'" + _no4 + "','" + _no5 + "','" + _no6 + "','" + _bonus +"');";
         mSqliteDB.execSQL(insert);
+
+        InsertNumberSortingData(_no1,_no2,_no3,_no4,_no5,_no6,_bonus);
+    }
+
+
+    public void InsertNumberSortingData(String _no1, String _no2, String _no3, String _no4,
+                                        String _no5, String _no6, String _bonus)
+    {
+        int NO1 = 0;
+        int NO2 = 0;
+        int NO3 = 0;
+        int NO4 = 0;
+        int NO5 = 0;
+        int NO6 = 0;
+        int BONUS = 0;
+
+        NO1 = PowerSDK.getIntPreference(mCtx,_no1);
+        PowerSDK.setIntPreference(mCtx, _no1, NO1 + 1);
+
+        NO2 = PowerSDK.getIntPreference(mCtx,_no2);
+        PowerSDK.setIntPreference(mCtx, _no2, NO2 + 1);
+
+        NO3 = PowerSDK.getIntPreference(mCtx,_no3);
+        PowerSDK.setIntPreference(mCtx, _no3, NO3 + 1);
+
+        NO4 = PowerSDK.getIntPreference(mCtx,_no4);
+        PowerSDK.setIntPreference(mCtx, _no4, NO4 + 1);
+
+        NO5 = PowerSDK.getIntPreference(mCtx,_no5);
+        PowerSDK.setIntPreference(mCtx, _no5, NO5 + 1);
+
+        NO6 = PowerSDK.getIntPreference(mCtx,_no6);
+        PowerSDK.setIntPreference(mCtx, _no6, NO6 + 1);
+
+        BONUS = PowerSDK.getIntPreference(mCtx,_bonus);
+        PowerSDK.setIntPreference(mCtx, _bonus, BONUS + 1);
+
+        Log.d(TAG,_no1 + " : " + (NO1+1) + ", " + _no2 + " : " + (NO2+1) + ", " + _no3 + " : " + (NO3+1) + ", " +
+                _no4 + " : " + (NO4+1) + ", " + _no5 + " : " + (NO5+1) + ", " + _no6 + " : " + (NO6+1) + ", " + _bonus + " : " + (BONUS+1));
     }
 
     public String[] SelectData(String TableName)

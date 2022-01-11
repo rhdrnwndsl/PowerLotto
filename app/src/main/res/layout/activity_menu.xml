@@ -47,15 +47,16 @@
             -->
         <!-- 내부테스트용 버튼 -->
         <Button
-            android:id="@+id/menu_btn_home"
+            android:id="@+id/menu_btn_sort"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/button_box"
-            android:layout_weight="0.15"
-            android:text="홈"
+            android:layout_weight="0.25"
+            android:text="번호
+            통계"
             android:layout_marginRight="1dp"
             android:textColor="#FFFFFF"
-            android:textSize="15dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <Button
@@ -77,9 +78,9 @@
             android:layout_height="match_parent"
             android:background="@drawable/button_box"
             android:layout_marginRight="1dp"
-            android:layout_weight="0.3"
+            android:layout_weight="0.25"
             android:text="QR
-            당첨확인"
+            당첨"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -89,7 +90,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/button_box"
-            android:layout_weight="0.3"
+            android:layout_weight="0.25"
             android:text="길한
             번호"
             android:textColor="#FFFFFF"
