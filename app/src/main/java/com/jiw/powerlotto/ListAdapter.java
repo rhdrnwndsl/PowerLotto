@@ -2,7 +2,9 @@ package com.jiw.powerlotto;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +93,13 @@ public class ListAdapter extends ArrayAdapter<ListModel> {
                             ListModel listModel = (ListModel) view.getTag();
                             removeItem(listModel);
                             notifyDataSetChanged();
+                            try{
+                                mPowerSdk.DeleteQRData(listModel.getUrl());
+                            }
+                            catch (SQLiteException ex)
+                            {
+                                Log.d("LIST_ADAPTER",ex.toString());
+                            }
                         }}) .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // 취소시 처리 로직

@@ -118,5 +118,12 @@ public class Database {
         return tmp.toArray(new String[0]);
     }
 
+    public void DeleteQRData(String _url)
+    {
+        //기존 데이터 삭제
+        String delete = "DELETE FROM " + DB_QRCHECK_TABLENAME + " where url = '" + _url  + "';";
+        mSqliteDB.execSQL(delete);
+    }
+
 }
 

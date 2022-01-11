@@ -69,4 +69,15 @@ public class PowerSDK {
 
         return selectQuery;
     }
+
+    public void DeleteQRData(String _url)
+    {
+        try{
+            mSqlite.DeleteQRData(_url);
+        }
+        catch (SQLiteException ex)
+        {
+            Log.d(TAG,ex.toString());
+        }
+    }
 }
