@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(_ctx, MenuActivity.class);
                             startActivity(intent);
                             finish();
-                        }, 1000);
+                        }, 3000);
                     }
 
                     return;
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(_ctx, MenuActivity.class);
                             startActivity(intent);
                             finish();
-                        }, 1000);
+                        }, 3000);
                     }
                     return;
                 }
