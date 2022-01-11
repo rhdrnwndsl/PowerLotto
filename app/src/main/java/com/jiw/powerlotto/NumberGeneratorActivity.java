@@ -38,6 +38,35 @@ public class NumberGeneratorActivity extends AppCompatActivity {
     private void init()
     {
         mPowerSDK = PowerSDK.getInstance();
+
+        String [] data100 = mPowerSDK.SelectData(Database.DB_100COMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
+        String [] data10 = mPowerSDK.SelectData(Database.DB_10COMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
+
+        for (int i = 1; i < 46; i++)
+        {
+            PowerSDK.setIntPreference(this,"100_" + String.valueOf(i), 0);
+            PowerSDK.setIntPreference(this,"10_" + String.valueOf(i), 0);
+        }
+
+        if(data100!=null)
+        {
+            for(String n:data100)
+            {
+                String[] tmp = n.split(",");
+                mPowerSDK.InsertNumber100SortingData(tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7]);
+            }
+        }
+
+        if(data10!=null)
+        {
+            for(String n:data10)
+            {
+                String[] tmp = n.split(",");
+                mPowerSDK.InsertNumber10SortingData(tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7]);
+            }
+        }
+
+
         int max = 45;
 
         int no1 = 0;
