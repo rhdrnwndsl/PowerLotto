@@ -39,6 +39,11 @@ public class PowerSDK {
         }
     }
 
+    public void DeleteQRCheckData()
+    {
+
+    }
+
     public void InsertPreviewData(int _drwNo, String _no1, String _no2, String _no3,
                                   String _no4, String _no5, String _no6, String _bonus)
     {

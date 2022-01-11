@@ -23,10 +23,12 @@ import lombok.Data;
 public class ListAdapter extends ArrayAdapter<ListModel> {
     ArrayList<ListModel> listModelArrayList;
     int resource;
+    PowerSDK mPowerSdk;
     public ListAdapter(@NonNull Context context, int resource, @NonNull List<ListModel> objects) {
         super(context, resource, objects);
         this.resource = resource;
         this.listModelArrayList = (ArrayList<ListModel>) objects;
+        mPowerSdk = PowerSDK.getInstance();
     }
 
     /** * 해당 아이템 삭제

@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:id="@+id/text_seq"
         android:text="A"
+        android:textColor="@color/black"
         android:gravity="center"
         android:background="@drawable/border_bg" />
 
@@ -19,6 +20,7 @@
         android:id="@+id/text_result"
         android:text="결과"
         android:gravity="center"
+        android:textColor="@color/black"
         android:background="@drawable/border_bg" />
 
     <LinearLayout
@@ -32,7 +34,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_num1"
             android:background="@drawable/yellow_circle"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             android:text="3"
             android:gravity="center"
             android:layout_margin="5dp" />
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_num2"
             android:background="@drawable/yellow_circle"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             android:text="3"
             android:gravity="center"
             android:layout_margin="5dp" />
@@ -52,7 +54,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_num3"
             android:background="@drawable/yellow_circle"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             android:text="3"
             android:gravity="center"
             android:layout_margin="5dp" />
@@ -62,7 +64,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_num4"
             android:background="@drawable/yellow_circle"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             android:text="3"
             android:gravity="center"
             android:layout_margin="5dp" />
@@ -72,7 +74,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_num5"
             android:background="@drawable/yellow_circle"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             android:text="3"
             android:gravity="center"
             android:layout_margin="5dp" />
@@ -82,7 +84,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/text_num6"
             android:background="@drawable/yellow_circle"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             android:text="3"
             android:gravity="center"
             android:layout_margin="5dp" />

@@ -21,6 +21,7 @@ public class QR_ResultActivity extends AppCompatActivity {
     int mScanComplete = 0;
     String mUrl = "";
     String mResult = "";
+    PowerSDK mPowerSDK;
 
     String TAG = this.getClass().getName();
 
@@ -32,6 +33,8 @@ public class QR_ResultActivity extends AppCompatActivity {
         Intent mintent = new Intent(getApplicationContext(), QR_CheckActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivityForResult(mintent, 104);
+
+        mPowerSDK = PowerSDK.getInstance();
     }
 
 
@@ -96,6 +99,8 @@ public class QR_ResultActivity extends AppCompatActivity {
             // 리스트에 해당 항목 추가
             listModelArrayList.add(listModel);
             listAdapter.notifyDataSetChanged();
+
+            mPowerSDK.InsertQRCheckData(mUrl,mResult);
 
         }
 

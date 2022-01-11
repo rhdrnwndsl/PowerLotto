@@ -85,7 +85,7 @@ public class Database {
                 int co2 = c.getColumnIndex("result");
                 String url = c.getString(co1);
                 String result = c.getString(co2);
-                String data = url + "," + result;
+                String data = url + "^" + result;
                 tmp.add(data);
             }
         }
