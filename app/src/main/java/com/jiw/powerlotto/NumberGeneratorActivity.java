@@ -71,16 +71,6 @@ public class NumberGeneratorActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {}
         });
 
-        loadAd();
-
-    }
-
-    private void init()
-    {
-
-
-
-
         mPowerSDK = PowerSDK.getInstance();
 
         adapter = new ListNumberGenerateAdapter();
@@ -96,6 +86,12 @@ public class NumberGeneratorActivity extends AppCompatActivity {
             return;
         });
 
+        loadAd();
+
+    }
+
+    private void init()
+    {
         String [] data100 = mPowerSDK.SelectData(Database.DB_100COMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
         String [] data10 = mPowerSDK.SelectData(Database.DB_10COMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
 
