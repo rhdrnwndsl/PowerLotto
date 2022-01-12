@@ -1,11 +1,14 @@
 package com.jiw.powerlotto;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +37,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import lombok.Data;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 /**
  * 번호 추첨화면(30초 광고도 표시) 하단 광고바(모든화면에 하단광고바가 표시)
@@ -43,16 +55,32 @@ public class NumberGeneratorActivity extends AppCompatActivity {
     /** 위 listview 에 연계되는 adapter 해당 리스트들의 각각의 데이터들의 위치 리스트추가 등의 기능을 수행한다다*/
     ListNumberGenerateAdapter adapter;
 
+    private InterstitialAd mInterstitialAd;
+    private String AD_UNIT_ID = "ca-app-pub-9992643111661420/6492371137";
+//    private String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_number_generator);
         mCtx = this;
-        init();
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+        });
+
+        loadAd();
+
     }
 
     private void init()
     {
+
+
+
+
         mPowerSDK = PowerSDK.getInstance();
 
         adapter = new ListNumberGenerateAdapter();
@@ -170,11 +198,36 @@ public class NumberGeneratorActivity extends AppCompatActivity {
             max +=  entry.getValue();
         }
 
+        int finalMax = max;
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            NumberSet(finalMax);
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                NumberSet(finalMax);
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    NumberSet(finalMax);
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        NumberSet(finalMax);
+                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                            NumberSet(finalMax);
+                            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                                NumberSet(finalMax);
+                            }, 600);
+                        }, 500);
+                    }, 400);
+                }, 300);
+            }, 200);
+        }, 100);
+
+
+    }
+
+    private void NumberSet(int _max)
+    {
         Set<Integer> set = new HashSet<>();
         int i = 0;
         while (set.size() < 6) {
             Random _random = new Random();
-            i = _random.nextInt(max) + 1;
+            i = _random.nextInt(_max) + 1;
             i = SwitchNumber(i);
             set.add(i);
         }
@@ -182,16 +235,16 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         List<Integer> list = new ArrayList<>(set);
         Collections.sort(list);
         System.out.println(list);
-        no1 = list.get(0);
-        no2 = list.get(1);
-        no3 = list.get(2);
-        no4 = list.get(3);
-        no5 = list.get(4);
-        no6 = list.get(5);
+        int no1 = list.get(0);
+        int no2 = list.get(1);
+        int no3 = list.get(2);
+        int no4 = list.get(3);
+        int no5 = list.get(4);
+        int no6 = list.get(5);
 
         final String _msg = "번호 생성 : " + no1 + ", " + no2 + ", " + no3 + ", " + no4 + ", " + no5 + ", " + no6;
         Log.d(TAG, _msg);
-        Toast.makeText(this, _msg, Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, _msg, Toast.LENGTH_SHORT).show();
 
         NumberGenerateList(no1,no2,no3,no4,no5,no6);
     }
@@ -473,6 +526,81 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 
         adapter.addItem(String.valueOf(_no1),String.valueOf(_no2),String.valueOf(_no3),String.valueOf(_no4),String.valueOf(_no5),String.valueOf(_no6));
         listview.setAdapter(adapter);
+    }
+
+    public void loadAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(
+                this,
+                AD_UNIT_ID,
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                        Toast.makeText(mCtx, "onAdLoaded()", Toast.LENGTH_SHORT).show();
+                        mInterstitialAd.setFullScreenContentCallback(
+                                new FullScreenContentCallback() {
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        // Called when fullscreen content is dismissed.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        mInterstitialAd = null;
+                                        Log.d("TAG", "The ad was dismissed.");
+
+                                        Intent intent = new Intent();
+                                        intent.putExtra("result","Completed");
+                                        setResult(103, intent);
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                        // Called when fullscreen content failed to show.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        mInterstitialAd = null;
+                                        Log.d("TAG", "The ad failed to show.");
+
+                                        Intent intent = new Intent();
+                                        intent.putExtra("result","Completed");
+                                        setResult(103, intent);
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onAdShowedFullScreenContent() {
+                                        // Called when fullscreen content is shown.
+                                        Log.d("TAG", "The ad was shown.");
+                                        init();
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i(TAG, loadAdError.getMessage());
+                        mInterstitialAd = null;
+
+                        String error =
+                                String.format(
+                                        "domain: %s, code: %d, message: %s",
+                                        loadAdError.getDomain(), loadAdError.getCode(), loadAdError.getMessage());
+                        Toast.makeText(
+                                mCtx, "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT)
+                                .show();
+
+                        Intent intent = new Intent();
+                        intent.putExtra("result","Completed");
+                        setResult(103, intent);
+                        finish();
+                    }
+                });
     }
 
 

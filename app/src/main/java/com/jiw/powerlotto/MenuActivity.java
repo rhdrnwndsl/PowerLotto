@@ -16,6 +16,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 import java.util.ArrayList;
 
 /**
@@ -28,6 +34,9 @@ public class MenuActivity extends AppCompatActivity {
     ArrayList<ListModel> listModelArrayList;
     ListAdapter listAdapter;
 
+    /** 배너광고 */
+    private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +46,19 @@ public class MenuActivity extends AppCompatActivity {
 
     private void init()
     {
+        // 초기화
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                
+            }
+        });
+
+        mAdView = findViewById(R.id.main_adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
         mPowerSDK = PowerSDK.getInstance();
         mBtnSort = findViewById(R.id.menu_btn_sort);
         mBtnPre = findViewById(R.id.menu_btn_preview);

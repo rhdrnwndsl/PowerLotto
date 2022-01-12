@@ -9,4 +9,12 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="admob_app_id">ca-app-pub-9992643111661420~6322525334</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-9992643111661420/8537625130</string>
+
+    <string name="fullscreen_ad_unit_id">ca-app-pub-9992643111661420/6492371137</string>
+
+    <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

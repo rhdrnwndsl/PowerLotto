@@ -46,6 +46,6 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.10.2'
     compileOnly "org.projectlombok:lombok:1.18.12"
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
-
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
 
 }
