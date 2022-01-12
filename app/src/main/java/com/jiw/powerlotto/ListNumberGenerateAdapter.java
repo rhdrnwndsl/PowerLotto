@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ListNumberGenerateAdapter  extends BaseAdapter {
-    private ArrayList<ListNumberGenerateReader> m_list_number_reader = new ArrayList<ListNumberGenerateReader>() ;
+    public ArrayList<ListNumberGenerateReader> m_list_number_reader = new ArrayList<ListNumberGenerateReader>() ;
 
     public ListNumberGenerateAdapter() {
 

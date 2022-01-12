@@ -3,6 +3,9 @@ package com.jiw.powerlotto;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +14,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -48,6 +52,7 @@ public class NumberGeneratorActivity extends AppCompatActivity {
     PowerSDK mPowerSDK;
     Context mCtx;
 
+    TextView mTxt_num_congratu;
     Button mBtn_number_exit;
 
     /** sqlite에 저장된 최근무결성검사 10개를 리스트로 화면에 구성한다 */
@@ -56,8 +61,8 @@ public class NumberGeneratorActivity extends AppCompatActivity {
     ListNumberGenerateAdapter adapter;
 
     private InterstitialAd mInterstitialAd;
-    private String AD_UNIT_ID = "ca-app-pub-9992643111661420/6492371137";
-//    private String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
+    private String AD_UNIT_ID = "ca-app-pub-9992643111661420/6492371137";   //실제
+//    private String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"; //테스트
 
 
     @Override
@@ -77,6 +82,8 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.list_number_generate);
         listview.setAdapter(adapter);
 
+        mTxt_num_congratu = findViewById(R.id.txt_num_congratu);
+
         mBtn_number_exit = findViewById(R.id.btn_number_exit);
         mBtn_number_exit.setOnClickListener(v->{
             Intent intent = new Intent();
@@ -85,6 +92,8 @@ public class NumberGeneratorActivity extends AppCompatActivity {
             finish();
             return;
         });
+
+//        init();
 
         loadAd();
 
@@ -195,26 +204,21 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         }
 
         int finalMax = max;
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+        adapter = new ListNumberGenerateAdapter();
+        while(adapter.m_list_number_reader.size() < 5 )
+        {
             NumberSet(finalMax);
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                NumberSet(finalMax);
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    NumberSet(finalMax);
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        NumberSet(finalMax);
-                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                            NumberSet(finalMax);
-                            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                                NumberSet(finalMax);
-                            }, 600);
-                        }, 500);
-                    }, 400);
-                }, 300);
-            }, 200);
-        }, 100);
+            try
+            {
+                Thread.sleep(200);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
 
-
+        listview.setAdapter(adapter);
+        ButtonEffect();
     }
 
     private void NumberSet(int _max)
@@ -238,11 +242,71 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         int no5 = list.get(4);
         int no6 = list.get(5);
 
+        if (no4 <= 10)
+        {
+            Log.d(TAG, "10이하 4개");
+            return;
+        }
+
+        else if((no1 > 10 && no1 <= 20) && (no2 > 10 && no2 <= 20) && (no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20))
+        {
+            Log.d(TAG, "10초과 20이하 4개");
+            return;
+        }
+        else if((no2 > 10 && no2 <= 20) && (no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20) && (no5 > 10 && no5 <= 20))
+        {
+            Log.d(TAG, "10초과 20이하 4개");
+            return;
+        }
+        else if((no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20) && (no5 > 10 && no5 <= 20) && (no6 > 10 && no6 <= 20))
+        {
+            Log.d(TAG, "10초과 20이하 4개");
+            return;
+        }
+
+        else if((no1 > 20 && no1 <= 30) && (no2 > 20 && no2 <= 30) && (no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30))
+        {
+            Log.d(TAG, "20초과 30이하 4개");
+            return;
+        }
+        else if((no2 > 20 && no2 <= 30) && (no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30) && (no5 > 20 && no5 <= 30))
+        {
+            Log.d(TAG, "20초과 30이하 4개");
+            return;
+        }
+        else if((no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30) && (no5 > 20 && no5 <= 30) && (no6 > 20 && no6 <= 30))
+        {
+            Log.d(TAG, "20초과 30이하 4개");
+            return;
+        }
+
+        else if((no1 > 30 && no1 <= 40) && (no2 > 30 && no2 <= 40) && (no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40))
+        {
+            Log.d(TAG, "30초과 40이하 4개");
+            return;
+        }
+        else if((no2 > 30 && no2 <= 40) && (no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40) && (no5 > 30 && no5 <= 40))
+        {
+            Log.d(TAG, "30초과 40이하 4개");
+            return;
+        }
+        else if((no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40) && (no5 > 30 && no5 <= 40) && (no6 > 30 && no6 <= 40))
+        {
+            Log.d(TAG, "30초과 40이하 4개");
+            return;
+        }
+
+        else if((no4 > 40) && (no5 > 40) && (no6 > 40))
+        {
+            Log.d(TAG, "40초과 3개");
+            return;
+        }
+
         final String _msg = "번호 생성 : " + no1 + ", " + no2 + ", " + no3 + ", " + no4 + ", " + no5 + ", " + no6;
         Log.d(TAG, _msg);
-//        Toast.makeText(this, _msg, Toast.LENGTH_SHORT).show();
 
-        NumberGenerateList(no1,no2,no3,no4,no5,no6);
+        adapter.addItem(String.valueOf(no1),String.valueOf(no2),String.valueOf(no3),String.valueOf(no4),String.valueOf(no5),String.valueOf(no6));
+
     }
 
     private int SwitchNumber(int n)
@@ -515,13 +579,21 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         return n;
     }
 
-
-    private void NumberGenerateList(int _no1, int _no2, int _no3, int _no4, int _no5, int _no6)
+    private void ButtonEffect()
     {
-        adapter = new ListNumberGenerateAdapter();
+        ObjectAnimator anim = ObjectAnimator.ofInt(mTxt_num_congratu, "textColor", Color.RED, Color.GREEN, Color.BLUE);
+        anim.setDuration(1500);
+        anim.setEvaluator(new ArgbEvaluator());
+        anim.setRepeatMode(ValueAnimator.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        anim.start();
 
-        adapter.addItem(String.valueOf(_no1),String.valueOf(_no2),String.valueOf(_no3),String.valueOf(_no4),String.valueOf(_no5),String.valueOf(_no6));
-        listview.setAdapter(adapter);
+//        ObjectAnimator anim1 = ObjectAnimator.ofInt(listview, "backgroundColor", Color.RED, Color.GREEN, Color.BLUE);
+//        anim1.setDuration(1500);
+//        anim1.setEvaluator(new ArgbEvaluator());
+//        anim1.setRepeatMode(ValueAnimator.REVERSE);
+//        anim1.setRepeatCount(Animation.INFINITE);
+//        anim1.start();
     }
 
     public void loadAd() {

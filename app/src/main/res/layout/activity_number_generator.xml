@@ -29,9 +29,14 @@
         android:layout_weight="0.1"
         android:orientation="vertical">
 
-        <View
+        <TextView
+            android:id="@+id/txt_num_congratu"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text="당신의 당첨을 기원합니다"
+            android:textAlignment="center"
+            android:textSize="32dp"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 
