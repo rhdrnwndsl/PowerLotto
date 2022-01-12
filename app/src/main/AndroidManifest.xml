@@ -16,18 +16,23 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".NumberGeneratorActivity"
+            android:theme="@style/Theme.PowerLotto.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".QR_CheckActivity"
+            android:theme="@style/Theme.PowerLotto.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".QR_ResultActivity"
+            android:theme="@style/Theme.PowerLotto.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".PreviewActivity"
+            android:theme="@style/Theme.PowerLotto.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".NumberSortingActivity"
+            android:theme="@style/Theme.PowerLotto.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".MenuActivity"

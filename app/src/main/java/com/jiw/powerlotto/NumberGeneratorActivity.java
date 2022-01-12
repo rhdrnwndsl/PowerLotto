@@ -4,8 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,6 +26,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import lombok.Data;
+
 /**
  * 번호 추첨화면(30초 광고도 표시) 하단 광고바(모든화면에 하단광고바가 표시)
  */
@@ -26,6 +35,13 @@ public class NumberGeneratorActivity extends AppCompatActivity {
     String TAG = this.getClass().getName();
     PowerSDK mPowerSDK;
     Context mCtx;
+
+    Button mBtn_number_exit;
+
+    /** sqlite에 저장된 최근무결성검사 10개를 리스트로 화면에 구성한다 */
+    ListView listview ;
+    /** 위 listview 에 연계되는 adapter 해당 리스트들의 각각의 데이터들의 위치 리스트추가 등의 기능을 수행한다다*/
+    ListNumberGenerateAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +54,19 @@ public class NumberGeneratorActivity extends AppCompatActivity {
     private void init()
     {
         mPowerSDK = PowerSDK.getInstance();
+
+        adapter = new ListNumberGenerateAdapter();
+        listview = (ListView) findViewById(R.id.list_number_generate);
+        listview.setAdapter(adapter);
+
+        mBtn_number_exit = findViewById(R.id.btn_number_exit);
+        mBtn_number_exit.setOnClickListener(v->{
+            Intent intent = new Intent();
+            intent.putExtra("result","Completed");
+            setResult(103, intent);
+            finish();
+            return;
+        });
 
         String [] data100 = mPowerSDK.SelectData(Database.DB_100COMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
         String [] data10 = mPowerSDK.SelectData(Database.DB_10COMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
@@ -163,6 +192,8 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         final String _msg = "번호 생성 : " + no1 + ", " + no2 + ", " + no3 + ", " + no4 + ", " + no5 + ", " + no6;
         Log.d(TAG, _msg);
         Toast.makeText(this, _msg, Toast.LENGTH_LONG).show();
+
+        NumberGenerateList(no1,no2,no3,no4,no5,no6);
     }
 
     private int SwitchNumber(int n)
@@ -435,6 +466,16 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         return n;
     }
 
+
+    private void NumberGenerateList(int _no1, int _no2, int _no3, int _no4, int _no5, int _no6)
+    {
+        adapter = new ListNumberGenerateAdapter();
+
+        adapter.addItem(String.valueOf(_no1),String.valueOf(_no2),String.valueOf(_no3),String.valueOf(_no4),String.valueOf(_no5),String.valueOf(_no6));
+        listview.setAdapter(adapter);
+    }
+
+
     //뒤로가기 버튼 눌렀을 때
     @Override
     public void onBackPressed() {
@@ -445,4 +486,5 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         finish();
         return;
     }
+
 }

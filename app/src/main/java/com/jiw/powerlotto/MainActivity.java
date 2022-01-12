@@ -51,12 +51,6 @@ public class MainActivity extends AppCompatActivity {
         animationView = findViewById(R.id.splash_animationView);
         _ctx = this;
         powerSDK = new PowerSDK(this); //최초로 한번 설정한다
-//        animationView.setOnClickListener(v->{
-//            Intent intent = new Intent(this, MenuActivity.class);
-//            startActivity(intent);
-//            finish();
-//        });
-
         init();
     }
 
@@ -89,15 +83,8 @@ public class MainActivity extends AppCompatActivity {
             }, 3000);
         }
 
-        for(int i = _tableCount; i < 5000; i++)
-        {
-            if ( loop ) {
-                All_Preview_Number(i);
-            } else {
+        All_Preview_Number(_tableCount);
 
-                break;
-            }
-        }
     }
 
     private void All_Preview_Number(int d)
@@ -111,31 +98,22 @@ public class MainActivity extends AppCompatActivity {
 
                 if (response.contains("fail"))
                 {
-
-                    if (loop)
-                    {
-                        loop = false;
-                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                            Intent intent = new Intent(_ctx, MenuActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }, 3000);
-                    }
-
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        Intent intent = new Intent(_ctx, MenuActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }, 3000);
                     return;
                 }
                 if (jsonObject == null) {
-                    if (loop)
-                    {
-                        loop = false;
-                        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                            Intent intent = new Intent(_ctx, MenuActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }, 3000);
-                    }
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        Intent intent = new Intent(_ctx, MenuActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }, 3000);
                     return;
                 }
+
                 drwNo = d;
                 no1 = "" + jsonObject.get("drwtNo1");
                 no2 = "" + jsonObject.get("drwtNo2");
@@ -161,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG,ex.toString());
                 }
 
+                All_Preview_Number(drwNo + 1);
             }
         }, new Response.ErrorListener()
         {
@@ -178,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         };
         request.setShouldCache(false);
         requestQueue.add(request);
+
     }
 
 }

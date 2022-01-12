@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class QR_ResultActivity extends AppCompatActivity {
     String mUrl = "";
     String mResult = "";
     PowerSDK mPowerSDK;
+    Button mBtn_qr_exit;
 
     String TAG = this.getClass().getName();
 
@@ -39,6 +41,14 @@ public class QR_ResultActivity extends AppCompatActivity {
 
 
     private void initListView() {
+        mBtn_qr_exit = findViewById(R.id.btn_qr_exit);
+        mBtn_qr_exit.setOnClickListener(v->{
+            Intent intent = new Intent();
+            intent.putExtra("result","Completed");
+            setResult(102, intent);
+            finish();
+            return;
+        });
         listModelArrayList = new ArrayList<>();
         listAdapter = new ListAdapter(this, R.layout.layout_list, listModelArrayList);
         ListView listView = findViewById(R.id.list_view);

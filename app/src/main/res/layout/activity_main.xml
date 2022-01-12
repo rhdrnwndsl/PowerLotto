@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         app:lottie_rawRes="@raw/winners_animation"
         android:scaleType="centerCrop"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_loop="true"
         app:lottie_autoPlay="true"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

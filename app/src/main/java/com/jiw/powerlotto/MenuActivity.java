@@ -3,10 +3,15 @@ package com.jiw.powerlotto;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -63,27 +68,20 @@ public class MenuActivity extends AppCompatActivity {
         UpdateList();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//
-//
-//    }
+
+    private void ButtonEffect()
+    {
+        ObjectAnimator anim = ObjectAnimator.ofInt(mBtnNum, "textColor", Color.YELLOW, Color.RED, Color.YELLOW);
+        anim.setDuration(1500);
+        anim.setEvaluator(new ArgbEvaluator());
+        anim.setRepeatMode(ValueAnimator.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        anim.start();
+    }
 
     private void UpdateList()
     {
+        ButtonEffect();
         listModelArrayList = new ArrayList<>();
         listAdapter = new ListAdapter(this, R.layout.layout_list, listModelArrayList);
         ListView listView = findViewById(R.id.list_menu_view);
