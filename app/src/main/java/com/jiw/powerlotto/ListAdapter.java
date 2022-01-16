@@ -146,7 +146,7 @@ public class ListAdapter extends ArrayAdapter<ListModel> {
             }
 
             if(listModel.getPrice() == null) {
-                viewHolder.textPrice.setText("다음 기회에...");
+                viewHolder.textPrice.setText("다음 기회를 노려보세요");
             } else {
                 viewHolder.textPrice.setText("당첨금 : " + listModel.getPrice());
             }
