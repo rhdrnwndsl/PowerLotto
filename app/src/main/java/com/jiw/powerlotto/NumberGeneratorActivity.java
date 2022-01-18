@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -60,6 +61,8 @@ public class NumberGeneratorActivity extends AppCompatActivity {
     /** 위 listview 에 연계되는 adapter 해당 리스트들의 각각의 데이터들의 위치 리스트추가 등의 기능을 수행한다다*/
     ListNumberGenerateAdapter adapter;
 
+    Map<String, Integer> SwitchMap = new HashMap<>();
+
     private InterstitialAd mInterstitialAd;
     private String AD_UNIT_ID = "ca-app-pub-9992643111661420/6492371137";   //실제
 //    private String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"; //테스트
@@ -93,9 +96,9 @@ public class NumberGeneratorActivity extends AppCompatActivity {
             return;
         });
 
-//        init();
+        init();
 
-        loadAd();
+//        loadAd();
 
     }
 
@@ -205,6 +208,7 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 
         int finalMax = max;
         adapter = new ListNumberGenerateAdapter();
+        FindCombine();
         while(adapter.m_list_number_reader.size() < 5 )
         {
             NumberSet(finalMax);
@@ -219,16 +223,64 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 
         listview.setAdapter(adapter);
         ButtonEffect();
+
     }
 
     private void NumberSet(int _max)
     {
         Set<Integer> set = new HashSet<>();
         int i = 0;
+        Random _random = new Random();
+        i = _random.nextInt(_max) + 1;
+        i = SwitchNumber(i);
+        set.add(i);
+
         while (set.size() < 6) {
-            Random _random = new Random();
-            i = _random.nextInt(_max) + 1;
-            i = SwitchNumber(i);
+//            Random _random = new Random();
+//            i = _random.nextInt(_max) + 1;
+//            i = SwitchNumber(i);
+//            set.add(i);
+            int max = 0;
+            Map<String, Integer> _tmpMap = new HashMap<>();
+            for ( String _key:SwitchMap.keySet()) {
+                if(_key.contains("." + String.valueOf(i) + ",") || _key.contains("," + String.valueOf(i) + "."))
+                {
+                    String _tmp = _key.replace("." + String.valueOf(i) + "," , "");
+                    _tmp = _tmp.replace("," + String.valueOf(i) + "." , "");
+                    _tmp = _tmp.replace("," + String.valueOf(i),"");
+                    _tmp = _tmp.replace("." + String.valueOf(i),"");
+                    _tmpMap.put(_tmp, SwitchMap.get(_key));
+
+                }
+            }
+
+            List<Map.Entry<String, Integer>> entryList = new LinkedList<>(_tmpMap.entrySet());
+            entryList.sort(new Comparator<Map.Entry<String, Integer>>() {
+                @Override
+                public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                    return o2.getValue() - o1.getValue();
+                }
+            });
+            for(Map.Entry<String, Integer> entry : entryList){
+                System.out.println("tmpkey : " + entry.getKey() + ", tmpvalue : " + entry.getValue());
+                max +=  entry.getValue();
+            }
+
+            _random = new Random();
+            i = _random.nextInt(max) + 1;
+            int _tmpCount = 0;
+            for(Map.Entry<String, Integer> entry : entryList){
+                System.out.println("setkey : " + entry.getKey() + ", setvalue : " + entry.getValue());
+                _tmpCount +=  entry.getValue();
+                if (i <= _tmpCount)
+                {
+                    String tmp = entry.getKey();
+                    tmp = tmp.replace(",","");
+                    tmp = tmp.replace(".","");
+                    i = Integer.valueOf(tmp);
+                    break;
+                }
+            }
             set.add(i);
         }
 
@@ -296,9 +348,9 @@ public class NumberGeneratorActivity extends AppCompatActivity {
             return;
         }
 
-        else if((no4 > 40) && (no5 > 40) && (no6 > 40))
+        else if((no3 > 40) && (no4 > 40) && (no5 > 40) && (no6 > 40))
         {
-            Log.d(TAG, "40초과 3개");
+            Log.d(TAG, "40초과 4개");
             return;
         }
 
@@ -577,6 +629,139 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         }
 
         return n;
+    }
+
+    /**
+     * DB에서 로또 회차정보를 가져와서 가장 많이 나온 조합을 찾는다.
+     */
+    private void FindCombine()
+    {
+
+        for (int i = 1; i < 45; i ++)
+        {
+            for (int j = i+1; j < 46; j++)
+            {
+                PowerSDK.setIntPreference(mCtx, i + "," + j, 0);
+            }
+        }
+
+        String [] data = mPowerSDK.SelectData(Database.DB_ALLCOMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
+        if(data!=null)
+        {
+            for(String n:data)
+            {
+                String[] tmp = n.split(",");
+                List<Integer> list = new ArrayList<>();
+                list.add(Integer.parseInt(tmp[1]));list.add(Integer.parseInt(tmp[2]));list.add(Integer.parseInt(tmp[3]));
+                list.add(Integer.parseInt(tmp[4]));list.add(Integer.parseInt(tmp[5]));list.add(Integer.parseInt(tmp[6]));
+                list.add(Integer.parseInt(tmp[7]));
+                Collections.sort(list);
+                int no1 = list.get(0);
+                int no2 = list.get(1);
+                int no3 = list.get(2);
+                int no4 = list.get(3);
+                int no5 = list.get(4);
+                int no6 = list.get(5);
+                int no7 = list.get(6);
+                SwitchCombine(no1,no2,no3,no4,no5,no6,no7);
+
+            }
+
+            List<Map.Entry<String, Integer>> entryList = new LinkedList<>(SwitchMap.entrySet());
+            entryList.sort(new Comparator<Map.Entry<String, Integer>>() {
+                @Override
+                public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                    return o2.getValue() - o1.getValue();
+                }
+            });
+
+            for(Map.Entry<String, Integer> entry : entryList){
+                Log.d(TAG,"key : " + entry.getKey() + ", value : " + entry.getValue());
+            }
+        }
+
+
+    }
+
+
+    private void SwitchCombine(int val1, int val2, int val3, int val4, int val5, int val6, int valBonus)
+    {
+        int _put = 0;
+
+
+        _put = SwitchMap.get("." + val1 + "," + val2 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + ".");
+        SwitchMap.put("." + val1 + "," + val2 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val1 + "," + val3 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val3 + ".");
+        SwitchMap.put("." + val1 + "," + val3 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val1 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val4 + ".");
+        SwitchMap.put("." + val1 + "," + val4 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val1 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val5 + ".");
+        SwitchMap.put("." + val1 + "," + val5 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val1 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val6 + ".");
+        SwitchMap.put("." + val1 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val1 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val1 + "," + valBonus + ".");
+        SwitchMap.put("." + val1 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val2 + "," + val3 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val3 + ".");
+        SwitchMap.put("." + val2 + "," + val3 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val4 + ".");
+        SwitchMap.put("." + val2 + "," + val4 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val5 + ".");
+        SwitchMap.put("." + val2 + "," + val5 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val6 + ".");
+        SwitchMap.put("." + val2 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val2 + "," + valBonus + ".");
+        SwitchMap.put("." + val2 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val3 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val4 + ".");
+        SwitchMap.put("." + val3 + "," + val4 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val3 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val5 + ".");
+        SwitchMap.put("." + val3 + "," + val5 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val3 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val6 + ".");
+        SwitchMap.put("." + val3 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val3 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val3 + "," + valBonus + ".");
+        SwitchMap.put("." + val3 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val4 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val4 + "," + val5 + ".");
+        SwitchMap.put("." + val4 + "," + val5 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val4 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val4 + "," + val6 + ".");
+        SwitchMap.put("." + val4 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val4 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val4 + "," + valBonus + ".");
+        SwitchMap.put("." + val4 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val5 + "," + val6 + ".");
+        SwitchMap.put("." + val5 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val5 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val5 + "," + valBonus + ".");
+        SwitchMap.put("." + val5 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val6 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val6 + "," + valBonus + ".");
+        SwitchMap.put("." + val6 + "," + valBonus + ".", _put + 1);
+
     }
 
     private void ButtonEffect()
