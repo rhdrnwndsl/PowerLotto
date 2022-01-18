@@ -96,9 +96,9 @@ public class NumberGeneratorActivity extends AppCompatActivity {
             return;
         });
 
-        init();
+        //init();
 
-//        loadAd();
+        loadAd();
 
     }
 
