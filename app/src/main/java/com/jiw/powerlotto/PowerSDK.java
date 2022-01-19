@@ -113,10 +113,22 @@ public class PowerSDK {
         mSqlite.InsertNumber100SortingData( _no1,_no2,_no3,_no4,_no5,_no6,_bonus);
     }
 
+    public void InsertNumber100SortingDataNotBonus(String _no1, String _no2, String _no3,
+                                           String _no4, String _no5, String _no6)
+    {
+        mSqlite.InsertNumber100SortingDataNotBonus( _no1,_no2,_no3,_no4,_no5,_no6);
+    }
+
     public void InsertNumber10SortingData(String _no1, String _no2, String _no3,
                                            String _no4, String _no5, String _no6, String _bonus)
     {
         mSqlite.InsertNumber10SortingData( _no1,_no2,_no3,_no4,_no5,_no6,_bonus);
+    }
+
+    public void InsertNumber10SortingDataNotBonus(String _no1, String _no2, String _no3,
+                                          String _no4, String _no5, String _no6)
+    {
+        mSqlite.InsertNumber10SortingDataNotBonus( _no1,_no2,_no3,_no4,_no5,_no6);
     }
 
     public String[] SelectData(String TableName)

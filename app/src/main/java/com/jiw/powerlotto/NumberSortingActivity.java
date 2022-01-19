@@ -63,24 +63,24 @@ public class NumberSortingActivity extends AppCompatActivity {
     public void NumberSortingDATAResult()
     {
         adapter = new ListSortAdapter();
-        int n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17,n18,n19,n20,n21,n22,n23,n24,n25,
-                n26,n27,n28,n29,n30,n31,n32,n33,n34,n35,n36,n37,n38,n39,n40,n41,n42,n43,n44,n45;
-        n1 = mPowerSDK.getIntPreference(mCtx,"1");n11 = mPowerSDK.getIntPreference(mCtx,"11");n21 = mPowerSDK.getIntPreference(mCtx,"21");n31 = mPowerSDK.getIntPreference(mCtx,"31");
-        n2 = mPowerSDK.getIntPreference(mCtx,"2");n12 = mPowerSDK.getIntPreference(mCtx,"12");n22 = mPowerSDK.getIntPreference(mCtx,"22");n32 = mPowerSDK.getIntPreference(mCtx,"32");
-        n3 = mPowerSDK.getIntPreference(mCtx,"3");n13 = mPowerSDK.getIntPreference(mCtx,"13");n23 = mPowerSDK.getIntPreference(mCtx,"23");n33 = mPowerSDK.getIntPreference(mCtx,"33");
-        n4 = mPowerSDK.getIntPreference(mCtx,"4");n14 = mPowerSDK.getIntPreference(mCtx,"14");n24 = mPowerSDK.getIntPreference(mCtx,"24");n34 = mPowerSDK.getIntPreference(mCtx,"34");
-        n5 = mPowerSDK.getIntPreference(mCtx,"5");n15 = mPowerSDK.getIntPreference(mCtx,"15");n25 = mPowerSDK.getIntPreference(mCtx,"25");n35 = mPowerSDK.getIntPreference(mCtx,"35");
-        n6 = mPowerSDK.getIntPreference(mCtx,"6");n16 = mPowerSDK.getIntPreference(mCtx,"16");n26 = mPowerSDK.getIntPreference(mCtx,"26");n36 = mPowerSDK.getIntPreference(mCtx,"36");
-        n7 = mPowerSDK.getIntPreference(mCtx,"7");n17 = mPowerSDK.getIntPreference(mCtx,"17");n27 = mPowerSDK.getIntPreference(mCtx,"27");n37 = mPowerSDK.getIntPreference(mCtx,"37");
-        n8 = mPowerSDK.getIntPreference(mCtx,"8");n18 = mPowerSDK.getIntPreference(mCtx,"18");n28 = mPowerSDK.getIntPreference(mCtx,"28");n38 = mPowerSDK.getIntPreference(mCtx,"38");
-        n9 = mPowerSDK.getIntPreference(mCtx,"9");n19 = mPowerSDK.getIntPreference(mCtx,"19");n29 = mPowerSDK.getIntPreference(mCtx,"29");n39 = mPowerSDK.getIntPreference(mCtx,"39");
-        n10 = mPowerSDK.getIntPreference(mCtx,"10");n20 = mPowerSDK.getIntPreference(mCtx,"20");n30 = mPowerSDK.getIntPreference(mCtx,"30");n40 = mPowerSDK.getIntPreference(mCtx,"40");
-
-        n41 = mPowerSDK.getIntPreference(mCtx,"41");
-        n42 = mPowerSDK.getIntPreference(mCtx,"42");
-        n43 = mPowerSDK.getIntPreference(mCtx,"43");
-        n44 = mPowerSDK.getIntPreference(mCtx,"44");
-        n45 = mPowerSDK.getIntPreference(mCtx,"45");
+//        int n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17,n18,n19,n20,n21,n22,n23,n24,n25,
+//                n26,n27,n28,n29,n30,n31,n32,n33,n34,n35,n36,n37,n38,n39,n40,n41,n42,n43,n44,n45;
+//        n1 = mPowerSDK.getIntPreference(mCtx,"1");n11 = mPowerSDK.getIntPreference(mCtx,"11");n21 = mPowerSDK.getIntPreference(mCtx,"21");n31 = mPowerSDK.getIntPreference(mCtx,"31");
+//        n2 = mPowerSDK.getIntPreference(mCtx,"2");n12 = mPowerSDK.getIntPreference(mCtx,"12");n22 = mPowerSDK.getIntPreference(mCtx,"22");n32 = mPowerSDK.getIntPreference(mCtx,"32");
+//        n3 = mPowerSDK.getIntPreference(mCtx,"3");n13 = mPowerSDK.getIntPreference(mCtx,"13");n23 = mPowerSDK.getIntPreference(mCtx,"23");n33 = mPowerSDK.getIntPreference(mCtx,"33");
+//        n4 = mPowerSDK.getIntPreference(mCtx,"4");n14 = mPowerSDK.getIntPreference(mCtx,"14");n24 = mPowerSDK.getIntPreference(mCtx,"24");n34 = mPowerSDK.getIntPreference(mCtx,"34");
+//        n5 = mPowerSDK.getIntPreference(mCtx,"5");n15 = mPowerSDK.getIntPreference(mCtx,"15");n25 = mPowerSDK.getIntPreference(mCtx,"25");n35 = mPowerSDK.getIntPreference(mCtx,"35");
+//        n6 = mPowerSDK.getIntPreference(mCtx,"6");n16 = mPowerSDK.getIntPreference(mCtx,"16");n26 = mPowerSDK.getIntPreference(mCtx,"26");n36 = mPowerSDK.getIntPreference(mCtx,"36");
+//        n7 = mPowerSDK.getIntPreference(mCtx,"7");n17 = mPowerSDK.getIntPreference(mCtx,"17");n27 = mPowerSDK.getIntPreference(mCtx,"27");n37 = mPowerSDK.getIntPreference(mCtx,"37");
+//        n8 = mPowerSDK.getIntPreference(mCtx,"8");n18 = mPowerSDK.getIntPreference(mCtx,"18");n28 = mPowerSDK.getIntPreference(mCtx,"28");n38 = mPowerSDK.getIntPreference(mCtx,"38");
+//        n9 = mPowerSDK.getIntPreference(mCtx,"9");n19 = mPowerSDK.getIntPreference(mCtx,"19");n29 = mPowerSDK.getIntPreference(mCtx,"29");n39 = mPowerSDK.getIntPreference(mCtx,"39");
+//        n10 = mPowerSDK.getIntPreference(mCtx,"10");n20 = mPowerSDK.getIntPreference(mCtx,"20");n30 = mPowerSDK.getIntPreference(mCtx,"30");n40 = mPowerSDK.getIntPreference(mCtx,"40");
+//
+//        n41 = mPowerSDK.getIntPreference(mCtx,"41");
+//        n42 = mPowerSDK.getIntPreference(mCtx,"42");
+//        n43 = mPowerSDK.getIntPreference(mCtx,"43");
+//        n44 = mPowerSDK.getIntPreference(mCtx,"44");
+//        n45 = mPowerSDK.getIntPreference(mCtx,"45");
 
         Map<String, Integer> map = new HashMap<>();
         map.put("1", mPowerSDK.getIntPreference(mCtx,"1"));map.put("11", mPowerSDK.getIntPreference(mCtx,"11"));map.put("21", mPowerSDK.getIntPreference(mCtx,"21"));

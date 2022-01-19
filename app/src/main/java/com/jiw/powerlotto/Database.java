@@ -220,6 +220,39 @@ public class Database {
                 "100_" + _no4 + " : " + (NO4+1) + ", " + "100_" + _no5 + " : " + (NO5+1) + ", " + "100_" + _no6 + " : " + (NO6+1) + ", " + "100_" + _bonus + " : " + (BONUS+1));
     }
 
+    public void InsertNumber100SortingDataNotBonus(String _no1, String _no2, String _no3, String _no4,
+                                           String _no5, String _no6)
+    {
+        int NO1 = 0;
+        int NO2 = 0;
+        int NO3 = 0;
+        int NO4 = 0;
+        int NO5 = 0;
+        int NO6 = 0;
+
+        NO1 = PowerSDK.getIntPreference(mCtx,"100_" + _no1);
+        PowerSDK.setIntPreference(mCtx, "100_" + _no1, NO1 + 1);
+
+        NO2 = PowerSDK.getIntPreference(mCtx,"100_" + _no2);
+        PowerSDK.setIntPreference(mCtx, "100_" + _no2, NO2 + 1);
+
+        NO3 = PowerSDK.getIntPreference(mCtx,"100_" + _no3);
+        PowerSDK.setIntPreference(mCtx, "100_" + _no3, NO3 + 1);
+
+        NO4 = PowerSDK.getIntPreference(mCtx,"100_" + _no4);
+        PowerSDK.setIntPreference(mCtx, "100_" + _no4, NO4 + 1);
+
+        NO5 = PowerSDK.getIntPreference(mCtx,"100_" + _no5);
+        PowerSDK.setIntPreference(mCtx, "100_" + _no5, NO5 + 1);
+
+        NO6 = PowerSDK.getIntPreference(mCtx,"100_" + _no6);
+        PowerSDK.setIntPreference(mCtx, "100_" + _no6, NO6 + 1);
+
+
+        Log.d(TAG,"100_" + _no1 + " : " + (NO1+1) + ", " + "100_" + _no2 + " : " + (NO2+1) + ", " + "100_" + _no3 + " : " + (NO3+1) + ", " +
+                "100_" + _no4 + " : " + (NO4+1) + ", " + "100_" + _no5 + " : " + (NO5+1) + ", " + "100_" + _no6 + " : " + (NO6+1));
+    }
+
     public void InsertNumber10SortingData(String _no1, String _no2, String _no3, String _no4,
                                         String _no5, String _no6, String _bonus)
     {
@@ -254,6 +287,38 @@ public class Database {
 
         Log.d(TAG,"10_" + _no1 + " : " + (NO1+1) + ", " + "10_" + _no2 + " : " + (NO2+1) + ", " + "10_" + _no3 + " : " + (NO3+1) + ", " +
                 "10_" + _no4 + " : " + (NO4+1) + ", " + "10_" + _no5 + " : " + (NO5+1) + ", " + "10_" +  _no6 + " : " + (NO6+1) + ", " + "10_" + _bonus + " : " + (BONUS+1));
+    }
+
+    public void InsertNumber10SortingDataNotBonus(String _no1, String _no2, String _no3, String _no4,
+                                          String _no5, String _no6)
+    {
+        int NO1 = 0;
+        int NO2 = 0;
+        int NO3 = 0;
+        int NO4 = 0;
+        int NO5 = 0;
+        int NO6 = 0;
+
+        NO1 = PowerSDK.getIntPreference(mCtx,"10_" + _no1);
+        PowerSDK.setIntPreference(mCtx, "10_" + _no1, NO1 + 1);
+
+        NO2 = PowerSDK.getIntPreference(mCtx,"10_" + _no2);
+        PowerSDK.setIntPreference(mCtx, "10_" + _no2, NO2 + 1);
+
+        NO3 = PowerSDK.getIntPreference(mCtx,"10_" + _no3);
+        PowerSDK.setIntPreference(mCtx, "10_" + _no3, NO3 + 1);
+
+        NO4 = PowerSDK.getIntPreference(mCtx,"10_" + _no4);
+        PowerSDK.setIntPreference(mCtx, "10_" + _no4, NO4 + 1);
+
+        NO5 = PowerSDK.getIntPreference(mCtx,"10_" + _no5);
+        PowerSDK.setIntPreference(mCtx, "10_" + _no5, NO5 + 1);
+
+        NO6 = PowerSDK.getIntPreference(mCtx,"10_" + _no6);
+        PowerSDK.setIntPreference(mCtx, "10_" + _no6, NO6 + 1);
+
+        Log.d(TAG,"10_" + _no1 + " : " + (NO1+1) + ", " + "10_" + _no2 + " : " + (NO2+1) + ", " + "10_" + _no3 + " : " + (NO3+1) + ", " +
+                "10_" + _no4 + " : " + (NO4+1) + ", " + "10_" + _no5 + " : " + (NO5+1) + ", " + "10_" +  _no6 + " : " + (NO6+1));
     }
 
     public String[] SelectData(String TableName)
