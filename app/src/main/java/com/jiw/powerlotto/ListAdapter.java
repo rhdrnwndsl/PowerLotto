@@ -173,6 +173,7 @@ public class ListAdapter extends ArrayAdapter<ListModel> {
         viewDetailHolder.textSeq.setText(detailModel.getSeq());
         viewDetailHolder.textResult.setText(detailModel.getResult());
 
+        int _isWonCount = 0;
         for(int i=0; i<detailModel.getNumberList().size(); i++) {
             TextView textNum = viewDetailHolder.textNumArrayList.get(i);
             int num = (int) detailModel.getNumberList().get(i);

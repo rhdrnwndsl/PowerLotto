@@ -138,12 +138,19 @@ public class ListModel {
         return price;
     }
 
+    int isWonCount = 0;
+
     public boolean isWon(int _won)
     {
         for (int i = 0; i <answerNumberList.size(); i++)
         {
             if ((int) answerNumberList.get(i) == _won)
             {
+                if (i == answerNumberList.size()-1 && isWonCount!=5)
+                {
+                    return false;
+                }
+                isWonCount++;
                 return true;
             }
         }
