@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     PowerSDK powerSDK;
 
+    LoadingDialog loadingDialog;
+
     boolean loop = true;    //에러가 나올 때까지 루프를 돌아서 당첨번호를 모은다
 
     @Override
@@ -83,7 +85,16 @@ public class MainActivity extends AppCompatActivity {
             }, 3000);
         }
 
+        openLoadingDialog();
+
         All_Preview_Number(_tableCount);
+
+    }
+
+    private void openLoadingDialog()
+    {
+        loadingDialog = new LoadingDialog(MainActivity.this, "초기화 중입니다...");
+        loadingDialog.show();
 
     }
 
@@ -98,19 +109,21 @@ public class MainActivity extends AppCompatActivity {
 
                 if (response.contains("fail"))
                 {
+                    loadingDialog.dismisDialog();
                     new Handler(Looper.getMainLooper()).postDelayed(() -> {
                         Intent intent = new Intent(_ctx, MenuActivity.class);
                         startActivity(intent);
                         finish();
-                    }, 3000);
+                    }, 1000);
                     return;
                 }
                 if (jsonObject == null) {
+                    loadingDialog.dismisDialog();
                     new Handler(Looper.getMainLooper()).postDelayed(() -> {
                         Intent intent = new Intent(_ctx, MenuActivity.class);
                         startActivity(intent);
                         finish();
-                    }, 3000);
+                    }, 1000);
                     return;
                 }
 
@@ -124,6 +137,24 @@ public class MainActivity extends AppCompatActivity {
                 bonus = "" + jsonObject.get("bnusNo");
                 Log.d("당첨번호", drwNo + "회차 당첨번호 : " + no1 + ", " + no2 + ", "
                         + no3 + ", " + no4 + ", " + no5 + ", " + no6 + ", " + bonus);
+
+                if (drwNo == 100)
+                {
+                    loadingDialog.LoadingTextUpdate("서버에서 데이터를 불러옵니다...");
+                }
+                else if (drwNo == 400)
+                {
+                    loadingDialog.LoadingTextUpdate("불러온 데이터를 읽는 중입니다...");
+                }
+                else if (drwNo == 700)
+                {
+                    loadingDialog.LoadingTextUpdate("데이터 처리를 완료하였습니다...");
+                }
+                else if (drwNo == 900)
+                {
+                    loadingDialog.LoadingTextUpdate("잠시만 기다려 주십시오...");
+                }
+
                 try {
                     powerSDK.InsertPreviewData(drwNo,
                             no1,
