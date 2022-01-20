@@ -1,6 +1,7 @@
 package com.jiw.powerlotto;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +37,17 @@ public class ListNumberGenerateAdapter  extends BaseAdapter {
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         TextView _num_number1 = (TextView) convertView.findViewById(R.id.txt_num_num1) ;
+        _num_number1.setTextColor(Color.parseColor("#FFFFFF"));
         TextView _num_number2 = (TextView) convertView.findViewById(R.id.txt_num_num2) ;
+        _num_number2.setTextColor(Color.parseColor("#FFFFFF"));
         TextView _num_number3 = (TextView) convertView.findViewById(R.id.txt_num_num3) ;
+        _num_number3.setTextColor(Color.parseColor("#FFFFFF"));
         TextView _num_number4 = (TextView) convertView.findViewById(R.id.txt_num_num4) ;
+        _num_number4.setTextColor(Color.parseColor("#FFFFFF"));
         TextView _num_number5 = (TextView) convertView.findViewById(R.id.txt_num_num5) ;
+        _num_number5.setTextColor(Color.parseColor("#FFFFFF"));
         TextView _num_number6 = (TextView) convertView.findViewById(R.id.txt_num_num6) ;
+        _num_number6.setTextColor(Color.parseColor("#FFFFFF"));
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListNumberGenerateReader _list_num_reader = m_list_number_reader.get(position);
