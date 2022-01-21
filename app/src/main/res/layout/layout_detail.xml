@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="45dp"
     android:orientation="horizontal" >
 
     <TextView
@@ -30,8 +30,8 @@
         android:background="@drawable/border_bg" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/text_num1"
             android:background="@drawable/yellow_circle"
             android:textColor="@color/black"
@@ -40,8 +40,8 @@
             android:layout_margin="5dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/text_num2"
             android:background="@drawable/yellow_circle"
             android:textColor="@color/black"
@@ -50,8 +50,8 @@
             android:layout_margin="5dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/text_num3"
             android:background="@drawable/yellow_circle"
             android:textColor="@color/black"
@@ -60,8 +60,8 @@
             android:layout_margin="5dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/text_num4"
             android:background="@drawable/yellow_circle"
             android:textColor="@color/black"
@@ -70,8 +70,8 @@
             android:layout_margin="5dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/text_num5"
             android:background="@drawable/yellow_circle"
             android:textColor="@color/black"
@@ -80,8 +80,8 @@
             android:layout_margin="5dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/text_num6"
             android:background="@drawable/yellow_circle"
             android:textColor="@color/black"

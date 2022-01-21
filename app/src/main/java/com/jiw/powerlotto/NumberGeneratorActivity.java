@@ -201,9 +201,11 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         int finalMax = max;
         adapter = new ListNumberGenerateAdapter();
         FindCombine();
+        Map<String,Integer> _tmpMap = new HashMap<>();
+        _tmpMap = RandomCountSplit();
         while(adapter.m_list_number_reader.size() < 1 )
         {
-            NumberSet(finalMax);
+            NumberSet(finalMax,_tmpMap);
             try
             {
                 Thread.sleep(200);
@@ -320,9 +322,21 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 
         int finalMax = max;
         FindCombineNotBonus();
+        Map<String,Integer> _tmpMap = new HashMap<>();
+        _tmpMap = RandomCountSplit();
+        int _mpaCount = 1;
         while(adapter.m_list_number_reader.size() < 4 )
         {
-            NumberSet(finalMax);
+            if(_mpaCount != adapter.m_list_number_reader.size())
+            {
+                _mpaCount--;
+                _tmpMap = RandomCountSplit();
+            }
+
+            NumberSet(finalMax,_tmpMap);
+
+            _tmpMap = RandomCountSplit();
+            _mpaCount++;
             try
             {
                 Thread.sleep(200);
@@ -397,13 +411,57 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 
 
 
-    private void NumberSet(int _max)
+    private void NumberSet(int _max,Map<String,Integer> _countMap)
     {
         Set<Integer> set = new HashSet<>();
         int i = 0;
+        int tmp1=0,tmp10=0,tmp20=0,tmp30=0,tmp40=0;
+        List<Integer> tmpi = new ArrayList<Integer>();
         Random _random = new Random();
         i = _random.nextInt(_max) + 1;
         i = SwitchNumber(i);
+        if(i <= 10)
+        {
+            tmp1++;
+        }
+        else if(i >10 && i <= 20)
+        {
+            tmp10++;
+        }
+        else if(i >20 && i <= 30)
+        {
+            tmp20++;
+        }
+        else if(i >30 && i <= 40)
+        {
+            tmp30++;
+        }
+        else if(i >40)
+        {
+            tmp40++;
+        }
+
+        if(_countMap.get("1") < tmp1)
+        {
+            return;
+        }
+        else if(_countMap.get("10") < tmp10)
+        {
+            return;
+        }
+        else if(_countMap.get("20") < tmp20)
+        {
+            return;
+        }
+        else if(_countMap.get("30") < tmp30)
+        {
+            return;
+        }
+        else if(_countMap.get("40") < tmp40)
+        {
+            return;
+        }
+        tmpi.add(i);
         set.add(i);
 
         while (set.size() < 6) {
@@ -452,6 +510,68 @@ public class NumberGeneratorActivity extends AppCompatActivity {
                     break;
                 }
             }
+
+            List<Integer> list = new ArrayList<>(set);
+            int t1=0,t10=0,t20=0,t30=0,t40=0;
+            for(int z= 0; z<list.size(); z++)
+            {
+                if(list.get(z) <= 10){t1++; }
+                else if(list.get(z) >10 && list.get(z) <= 20){t10++; }
+                else if(list.get(z) >20 && list.get(z) <= 30){t20++; }
+                else if(list.get(z) >30 && list.get(z) <= 40){t30++; }
+                else if(list.get(z) >40){t40++; }
+
+            }
+
+
+            if(i <= 10)
+            {
+
+                tmp1 = t1+1;
+                if(_countMap.get("1") < tmp1)
+                {
+                    continue;
+                }
+            }
+            else if(i >10 && i <= 20)
+            {
+
+                tmp10 = t10+1;
+                if(_countMap.get("10") < tmp10)
+                {
+                    continue;
+                }
+            }
+            else if(i >20 && i <= 30)
+            {
+
+                tmp20 = t20+1;
+                if(_countMap.get("20") < tmp20)
+                {
+                    continue;
+                }
+            }
+            else if(i >30 && i <= 40)
+            {
+
+                tmp30=t30+1;
+                if(_countMap.get("30") < tmp30)
+                {
+                    continue;
+                }
+            }
+            else if(i >40)
+            {
+
+                tmp40=t40+1;
+                if(_countMap.get("40") < tmp40)
+                {
+                    continue;
+                }
+            }
+
+
+
             set.add(i);
         }
 
@@ -465,48 +585,48 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         int no5 = list.get(4);
         int no6 = list.get(5);
 
-        if (no5 <= 10)
+        tmp1=0;tmp10=0;tmp20=0;tmp30=0;tmp40=0;
+        for(int j =0; j<6; j++)
         {
-            Log.d(TAG, "10이하 5개");
+            if(list.get(j) <= 10)
+            {
+                tmp1++;
+            }
+            else if(list.get(j) >10 && list.get(j) <= 20)
+            {
+                tmp10++;
+            }
+            else if(list.get(j) >20 && list.get(j) <= 30)
+            {
+                tmp20++;
+            }
+            else if(list.get(j) >30 && list.get(j) <= 40)
+            {
+                tmp30++;
+            }
+            else if(list.get(j) >40)
+            {
+                tmp40++;
+            }
+        }
+        if(_countMap.get("1") != tmp1)
+        {
             return;
         }
-
-        else if((no1 > 10 && no1 <= 20) && (no2 > 10 && no2 <= 20) && (no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20) && (no5 > 10 && no5 <= 20))
+        else if(_countMap.get("10") != tmp10)
         {
-            Log.d(TAG, "10초과 20이하 5개");
             return;
         }
-        else if((no2 > 10 && no2 <= 20) && (no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20) && (no5 > 10 && no5 <= 20) && (no6 > 10 && no6 <= 20))
+        else if(_countMap.get("20") != tmp20)
         {
-            Log.d(TAG, "10초과 20이하 5개");
             return;
         }
-
-        else if((no1 > 20 && no1 <= 30) && (no2 > 20 && no2 <= 30) && (no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30) && (no5 > 20 && no5 <= 30))
+        else if(_countMap.get("30") != tmp30)
         {
-            Log.d(TAG, "20초과 30이하 5개");
             return;
         }
-        else if((no2 > 20 && no2 <= 30) && (no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30) && (no5 > 20 && no5 <= 30) && (no6 > 20 && no6 <= 30))
+        else if(_countMap.get("40") != tmp40)
         {
-            Log.d(TAG, "20초과 30이하 5개");
-            return;
-        }
-
-        else if((no1 > 30 && no1 <= 40) && (no2 > 30 && no2 <= 40) && (no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40) && (no5 > 30 && no5 <= 40))
-        {
-            Log.d(TAG, "30초과 40이하 5개");
-            return;
-        }
-        else if((no2 > 30 && no2 <= 40) && (no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40) && (no5 > 30 && no5 <= 40) && (no6 > 30 && no6 <= 40))
-        {
-            Log.d(TAG, "30초과 40이하 5개");
-            return;
-        }
-
-        else if((no3 > 40) && (no4 > 40) && (no5 > 40) && (no6 > 40))
-        {
-            Log.d(TAG, "40초과 4개");
             return;
         }
 
@@ -601,50 +721,50 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         int no5 = list.get(4);
         int no6 = list.get(5);
 
-        if (no5 <= 10)
-        {
-            Log.d(TAG, "10이하 5개");
-            return;
-        }
-
-        else if((no1 > 10 && no1 <= 20) && (no2 > 10 && no2 <= 20) && (no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20) && (no5 > 10 && no5 <= 20))
-        {
-            Log.d(TAG, "10초과 20이하 5개");
-            return;
-        }
-        else if((no2 > 10 && no2 <= 20) && (no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20) && (no5 > 10 && no5 <= 20) && (no6 > 10 && no6 <= 20))
-        {
-            Log.d(TAG, "10초과 20이하 5개");
-            return;
-        }
-
-        else if((no1 > 20 && no1 <= 30) && (no2 > 20 && no2 <= 30) && (no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30) && (no5 > 20 && no5 <= 30))
-        {
-            Log.d(TAG, "20초과 30이하 5개");
-            return;
-        }
-        else if((no2 > 20 && no2 <= 30) && (no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30) && (no5 > 20 && no5 <= 30) && (no6 > 20 && no6 <= 30))
-        {
-            Log.d(TAG, "20초과 30이하 5개");
-            return;
-        }
-
-        else if((no1 > 30 && no1 <= 40) && (no2 > 30 && no2 <= 40) && (no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40) && (no5 > 30 && no5 <= 40))
-        {
-            Log.d(TAG, "30초과 40이하 5개");
-            return;
-        }
-        else if((no2 > 30 && no2 <= 40) && (no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40) && (no5 > 30 && no5 <= 40) && (no6 > 30 && no6 <= 40))
-        {
-            Log.d(TAG, "30초과 40이하 5개");
-            return;
-        }
-
-        else if((no3 > 40) && (no4 > 40) && (no5 > 40) && (no6 > 40))
-        {
-            Log.d(TAG, "40초과 4개");
-            return;
-        }
+//        if (no5 <= 10)
+//        {
+//            Log.d(TAG, "10이하 5개");
+//            return;
+//        }
+//
+//        else if((no1 > 10 && no1 <= 20) && (no2 > 10 && no2 <= 20) && (no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20) && (no5 > 10 && no5 <= 20))
+//        {
+//            Log.d(TAG, "10초과 20이하 5개");
+//            return;
+//        }
+//        else if((no2 > 10 && no2 <= 20) && (no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20) && (no5 > 10 && no5 <= 20) && (no6 > 10 && no6 <= 20))
+//        {
+//            Log.d(TAG, "10초과 20이하 5개");
+//            return;
+//        }
+//
+//        else if((no1 > 20 && no1 <= 30) && (no2 > 20 && no2 <= 30) && (no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30) && (no5 > 20 && no5 <= 30))
+//        {
+//            Log.d(TAG, "20초과 30이하 5개");
+//            return;
+//        }
+//        else if((no2 > 20 && no2 <= 30) && (no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30) && (no5 > 20 && no5 <= 30) && (no6 > 20 && no6 <= 30))
+//        {
+//            Log.d(TAG, "20초과 30이하 5개");
+//            return;
+//        }
+//
+//        else if((no1 > 30 && no1 <= 40) && (no2 > 30 && no2 <= 40) && (no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40) && (no5 > 30 && no5 <= 40))
+//        {
+//            Log.d(TAG, "30초과 40이하 5개");
+//            return;
+//        }
+//        else if((no2 > 30 && no2 <= 40) && (no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40) && (no5 > 30 && no5 <= 40) && (no6 > 30 && no6 <= 40))
+//        {
+//            Log.d(TAG, "30초과 40이하 5개");
+//            return;
+//        }
+//
+//        else if((no3 > 40) && (no4 > 40) && (no5 > 40) && (no6 > 40))
+//        {
+//            Log.d(TAG, "40초과 4개");
+//            return;
+//        }
 
         final String _msg = "번호 생성 : " + no1 + ", " + no2 + ", " + no3 + ", " + no4 + ", " + no5 + ", " + no6;
         Log.d(TAG, _msg);
@@ -1166,6 +1286,311 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         _put = SwitchMap.get("." + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val5 + "," + val6 + ".");
         SwitchMap.put("." + val5 + "," + val6 + ".", _put + 1);
 
+    }
+
+    /**
+     * 1의자리 몇개인지 10의자리 몇개인지 20의자리 몇개인지 30의자리 몇개인지 40의자리 몇개인지 체크 후 먼저 랜덤으로 해당 값을 정하고 이후 숫자를 뽑는다
+     */
+    @NonNull
+    private Map<String, Integer> RandomCountSplit()
+    {
+        String[] dataAll = mPowerSDK.SelectData(Database.DB_ALLCOMPILENUMBER_TABLENAME);
+
+        Map<String, Map<String, Integer>> RandomCountMap = new HashMap<>(); //해쉬맵을 각횟차별로 정리한다
+        int n1 = 0, n10=0, n20=0, n30=0, n40=0; //자릿수가 몇개인지 체크
+
+        int drwno = 0;  //총 회차
+
+        if (dataAll != null)
+        {
+            for(String n:dataAll)
+            {
+                drwno++;
+                n1 = 0; n10=0; n20=0; n30=0; n40=0;
+                String[] tmp = n.split(",");
+                Map<String, Integer> RandomMap = new HashMap<>();   //각각의 자릿수가 몇개였는지를 체크한다
+                for (int i = 1; i < 7; i++) //보너스숫자는 제외
+                {
+                    if (Integer.parseInt(tmp[i]) <= 10)
+                    {
+                        n1++;
+                    }
+                    else if (Integer.parseInt(tmp[i]) > 10 && Integer.parseInt(tmp[i]) <= 20)
+                    {
+                        n10++;
+                    }
+                    else if (Integer.parseInt(tmp[i]) > 20 && Integer.parseInt(tmp[i]) <= 30)
+                    {
+                        n20++;
+                    }
+                    else if (Integer.parseInt(tmp[i]) > 30 && Integer.parseInt(tmp[i]) <= 40)
+                    {
+                        n30++;
+                    }
+                    else if (Integer.parseInt(tmp[i]) > 40)
+                    {
+                        n40++;
+                    }
+                }
+
+                RandomMap.put("1",n1); RandomMap.put("10",n10); RandomMap.put("20",n20); RandomMap.put("30",n30); RandomMap.put("40",n40);
+                RandomCountMap.put(tmp[0],RandomMap);
+            }
+        }
+
+        int totalN1 = 0,totalN10 = 0,totalN20 = 0,totalN30 = 0,totalN40 = 0;
+        int n1_0 = 0,n1_1 = 0,n1_2 = 0,n1_3 = 0,n1_4 = 0,n1_5 = 0,n1_6 = 0;
+        int n10_0 = 0,n10_1 = 0,n10_2 = 0,n10_3 = 0,n10_4 = 0,n10_5 = 0,n10_6 = 0;
+        int n20_0 = 0,n20_1 = 0,n20_2 = 0,n20_3 = 0,n20_4 = 0,n20_5 = 0,n20_6 = 0;
+        int n30_0 = 0,n30_1 = 0,n30_2 = 0,n30_3 = 0,n30_4 = 0,n30_5 = 0,n30_6 = 0;
+        int n40_0 = 0,n40_1 = 0,n40_2 = 0,n40_3 = 0,n40_4 = 0,n40_5 = 0,n40_6 = 0;
+
+        int count6_1=0,count6_10=0,count6_20=0,count6_30=0,count6_40=0;
+
+        Map<String, Integer> _tmpMap = new HashMap<>();
+        for(int i = 0; i<RandomCountMap.size(); i++)
+        {
+            _tmpMap.clear();
+            _tmpMap = RandomCountMap.get(String.valueOf(i+1));
+            totalN1 += _tmpMap.get("1"); totalN10 += _tmpMap.get("10"); totalN20 += _tmpMap.get("20"); totalN30 += _tmpMap.get("30"); totalN40 += _tmpMap.get("40");
+            switch (_tmpMap.get("1"))
+            {
+                case 0: n1_0++; break;
+                case 1: n1_1++; break;
+                case 2: n1_2++; break;
+                case 3: n1_3++; break;
+                case 4: n1_4++; break;
+                case 5: n1_5++; break;
+                case 6: n1_6++; break;
+            }
+            switch (_tmpMap.get("10"))
+            {
+                case 0: n10_0++; break;
+                case 1: n10_1++; break;
+                case 2: n10_2++; break;
+                case 3: n10_3++; break;
+                case 4: n10_4++; break;
+                case 5: n10_5++; break;
+                case 6: n10_6++; break;
+            }
+            switch (_tmpMap.get("20"))
+            {
+                case 0: n20_0++; break;
+                case 1: n20_1++; break;
+                case 2: n20_2++; break;
+                case 3: n20_3++; break;
+                case 4: n20_4++; break;
+                case 5: n20_5++; break;
+                case 6: n20_6++; break;
+            }
+            switch (_tmpMap.get("30"))
+            {
+                case 0: n30_0++; break;
+                case 1: n30_1++; break;
+                case 2: n30_2++; break;
+                case 3: n30_3++; break;
+                case 4: n30_4++; break;
+                case 5: n30_5++; break;
+                case 6: n30_6++; break;
+            }
+            switch (_tmpMap.get("40"))
+            {
+                case 0: n40_0++; break;
+                case 1: n40_1++; break;
+                case 2: n40_2++; break;
+                case 3: n40_3++; break;
+                case 4: n40_4++; break;
+                case 5: n40_5++; break;
+                case 6: n40_6++; break;
+            }
+        }
+        /** 1번대 10번대 20번대 30번대 40번대 중 무엇부터 뽑을지 랜덤으로 정한다 */
+        Set<Integer> set = new HashSet<>();
+        while (set.size()<5)
+        {
+            int j = 0;
+            int i = 0;
+            Random _random = new Random();
+            j = _random.nextInt(5);
+            switch (j)
+            {
+                case 0:
+                    if(count6_1+count6_10+count6_20+count6_30+count6_40 == 6)
+                    {
+                        set.add(j);
+                        break;
+                    }
+
+                    _random = new Random();
+                    i = _random.nextInt(n1_0+n1_1+n1_2+n1_3+n1_4+n1_5+n1_6) + 1;
+                    if (i <= n1_0) {count6_1 = 0;}
+                    else if(i>n1_0 && i<=n1_0+n1_1) {count6_1 = 1;}
+                    else if(i>n1_0+n1_1 && i<=n1_0+n1_1+n1_2) {count6_1 = 2;}
+                    else if(i>n1_0+n1_1+n1_2 && i<=n1_0+n1_1+n1_2+n1_3) {count6_1 = 3;}
+                    else if(i>n1_0+n1_1+n1_2+n1_3 && i<=n1_0+n1_1+n1_2+n1_3+n1_4) {count6_1 = 4;}
+                    else if(i>n1_0+n1_1+n1_2+n1_3+n1_4 && i<=n1_0+n1_1+n1_2+n1_3+n1_4+n1_5) {count6_1 = 5;}
+                    else if(i>n1_0+n1_1+n1_2+n1_3+n1_4+n1_5) {count6_1 = 6;}
+
+                    if(count6_1+count6_10+count6_20+count6_30+count6_40 > 6)
+                    {
+                        while (count6_1+count6_10+count6_20+count6_30+count6_40==6)
+                        {
+                            _random = new Random();
+                            i = _random.nextInt(n1_0+n1_1+n1_2+n1_3+n1_4+n1_5+n1_6) + 1;
+                            if (i <= n1_0) {count6_1 = 0;}
+                            else if(i>n1_0 && i<=n1_0+n1_1) {count6_1 = 1;}
+                            else if(i>n1_0+n1_1 && i<=n1_0+n1_1+n1_2) {count6_1 = 2;}
+                            else if(i>n1_0+n1_1+n1_2 && i<=n1_0+n1_1+n1_2+n1_3) {count6_1 = 3;}
+                            else if(i>n1_0+n1_1+n1_2+n1_3 && i<=n1_0+n1_1+n1_2+n1_3+n1_4) {count6_1 = 4;}
+                            else if(i>n1_0+n1_1+n1_2+n1_3+n1_4 && i<=n1_0+n1_1+n1_2+n1_3+n1_4+n1_5) {count6_1 = 5;}
+                            else if(i>n1_0+n1_1+n1_2+n1_3+n1_4+n1_5) {count6_1 = 6;}
+                        }
+                    }
+                    break;
+                case 1:
+                    if(count6_1+count6_10+count6_20+count6_30+count6_40 == 6)
+                    {
+                        set.add(j);
+                        break;
+                    }
+
+                    _random = new Random();
+                    i = _random.nextInt(n10_0+n10_1+n10_2+n10_3+n10_4+n10_5+n10_6) + 1;
+                    if (i <= n10_0) {count6_10 = 0;}
+                    else if(i>n10_0 && i<=n10_0+n10_1) {count6_10 = 1;}
+                    else if(i>n10_0+n10_1 && i<=n10_0+n10_1+n10_2) {count6_10 = 2;}
+                    else if(i>n10_0+n10_1+n10_2 && i<=n10_0+n10_1+n10_2+n10_3) {count6_10 = 3;}
+                    else if(i>n10_0+n10_1+n10_2+n10_3 && i<=n10_0+n10_1+n10_2+n10_3+n10_4) {count6_10 = 4;}
+                    else if(i>n10_0+n10_1+n10_2+n10_3+n10_4 && i<=n10_0+n10_1+n10_2+n10_3+n10_4+n10_5) {count6_10 = 5;}
+                    else if(i>n10_0+n10_1+n10_2+n10_3+n10_4+n10_5) {count6_10 = 6;}
+
+                    if(count6_1+count6_10+count6_20+count6_30+count6_40 > 6) {
+                        while (count6_1 + count6_10 + count6_20 + count6_30 + count6_40 == 6) {
+                            _random = new Random();
+                            i = _random.nextInt(n10_0+n10_1+n10_2+n10_3+n10_4+n10_5+n10_6) + 1;
+                            if (i <= n10_0) {count6_10 = 0;}
+                            else if(i>n10_0 && i<=n10_0+n10_1) {count6_10 = 1;}
+                            else if(i>n10_0+n10_1 && i<=n10_0+n10_1+n10_2) {count6_10 = 2;}
+                            else if(i>n10_0+n10_1+n10_2 && i<=n10_0+n10_1+n10_2+n10_3) {count6_10 = 3;}
+                            else if(i>n10_0+n10_1+n10_2+n10_3 && i<=n10_0+n10_1+n10_2+n10_3+n10_4) {count6_10 = 4;}
+                            else if(i>n10_0+n10_1+n10_2+n10_3+n10_4 && i<=n10_0+n10_1+n10_2+n10_3+n10_4+n10_5) {count6_10 = 5;}
+                            else if(i>n10_0+n10_1+n10_2+n10_3+n10_4+n10_5) {count6_10 = 6;}
+                        }
+                    }
+
+                    break;
+                case 2:
+                    if(count6_1+count6_10+count6_20+count6_30+count6_40 == 6)
+                    {
+                        set.add(j);
+                        break;
+                    }
+
+                    _random = new Random();
+                    i = _random.nextInt(n20_0+n20_1+n20_2+n20_3+n20_4+n20_5+n20_6) + 1;
+                    if (i <= n20_0) {count6_20 = 0;}
+                    else if(i>n20_0 && i<=n20_0+n20_1) {count6_20 = 1;}
+                    else if(i>n20_0+n20_1 && i<=n20_0+n20_1+n20_2) {count6_20 = 2;}
+                    else if(i>n20_0+n20_1+n20_2 && i<=n20_0+n20_1+n20_2+n20_3) {count6_20 = 3;}
+                    else if(i>n20_0+n20_1+n20_2+n20_3 && i<=n20_0+n20_1+n20_2+n20_3+n20_4) {count6_20 = 4;}
+                    else if(i>n20_0+n20_1+n20_2+n20_3+n20_4 && i<=n20_0+n20_1+n20_2+n20_3+n20_4+n20_5) {count6_20 = 5;}
+                    else if(i>n20_0+n20_1+n20_2+n20_3+n20_4+n20_5) {count6_20 = 6;}
+
+                    if(count6_1+count6_10+count6_20+count6_30+count6_40 > 6) {
+                        while (count6_1 + count6_10 + count6_20 + count6_30 + count6_40 == 6) {
+                            _random = new Random();
+                            i = _random.nextInt(n20_0+n20_1+n20_2+n20_3+n20_4+n20_5+n20_6) + 1;
+                            if (i <= n20_0) {count6_20 = 0;}
+                            else if(i>n20_0 && i<=n20_0+n20_1) {count6_20 = 1;}
+                            else if(i>n20_0+n20_1 && i<=n20_0+n20_1+n20_2) {count6_20 = 2;}
+                            else if(i>n20_0+n20_1+n20_2 && i<=n20_0+n20_1+n20_2+n20_3) {count6_20 = 3;}
+                            else if(i>n20_0+n20_1+n20_2+n20_3 && i<=n20_0+n20_1+n20_2+n20_3+n20_4) {count6_20 = 4;}
+                            else if(i>n20_0+n20_1+n20_2+n20_3+n20_4 && i<=n20_0+n20_1+n20_2+n20_3+n20_4+n20_5) {count6_20 = 5;}
+                            else if(i>n20_0+n20_1+n20_2+n20_3+n20_4+n20_5) {count6_20 = 6;}
+                        }
+                    }
+
+                    break;
+                case 3:
+                    if(count6_1+count6_10+count6_20+count6_30+count6_40 == 6)
+                    {
+                        set.add(j);
+                        break;
+                    }
+
+                    _random = new Random();
+                    i = _random.nextInt(n30_0+n30_1+n30_2+n30_3+n30_4+n30_5+n30_6) + 1;
+                    if (i <= n30_0) {count6_30 = 0;}
+                    else if(i>n30_0 && i<=n30_0+n30_1) {count6_30 = 1;}
+                    else if(i>n30_0+n30_1 && i<=n30_0+n30_1+n30_2) {count6_30 = 2;}
+                    else if(i>n30_0+n30_1+n30_2 && i<=n30_0+n30_1+n30_2+n30_3) {count6_30 = 3;}
+                    else if(i>n30_0+n30_1+n30_2+n30_3 && i<=n30_0+n30_1+n30_2+n30_3+n30_4) {count6_30 = 4;}
+                    else if(i>n30_0+n30_1+n30_2+n30_3+n30_4 && i<=n30_0+n30_1+n30_2+n30_3+n30_4+n30_5) {count6_30 = 5;}
+                    else if(i>n30_0+n30_1+n30_2+n30_3+n30_4+n30_5) {count6_30 = 6;}
+
+                    if(count6_1+count6_10+count6_20+count6_30+count6_40 > 6) {
+                        while (count6_1 + count6_10 + count6_20 + count6_30 + count6_40 == 6) {
+                            _random = new Random();
+                            i = _random.nextInt(n30_0+n30_1+n30_2+n30_3+n30_4+n30_5+n30_6) + 1;
+                            if (i <= n30_0) {count6_30 = 0;}
+                            else if(i>n30_0 && i<=n30_0+n30_1) {count6_30 = 1;}
+                            else if(i>n30_0+n30_1 && i<=n30_0+n30_1+n30_2) {count6_30 = 2;}
+                            else if(i>n30_0+n30_1+n30_2 && i<=n30_0+n30_1+n30_2+n30_3) {count6_30 = 3;}
+                            else if(i>n30_0+n30_1+n30_2+n30_3 && i<=n30_0+n30_1+n30_2+n30_3+n30_4) {count6_30 = 4;}
+                            else if(i>n30_0+n30_1+n30_2+n30_3+n30_4 && i<=n30_0+n30_1+n30_2+n30_3+n30_4+n30_5) {count6_30 = 5;}
+                            else if(i>n30_0+n30_1+n30_2+n30_3+n30_4+n30_5) {count6_30 = 6;}
+                        }
+                    }
+
+                    break;
+                case 4:
+                    if(count6_1+count6_10+count6_20+count6_30+count6_40 == 6)
+                    {
+                        set.add(j);
+                        break;
+                    }
+
+                    _random = new Random();
+                    i = _random.nextInt(n40_0+n40_1+n40_2+n40_3+n40_4+n40_5+n40_6) + 1;
+                    if (i <= n40_0) {count6_40 = 0;}
+                    else if(i>n40_0 && i<=n40_0+n40_1) {count6_40 = 1;}
+                    else if(i>n40_0+n40_1 && i<=n40_0+n40_1+n40_2) {count6_40 = 2;}
+                    else if(i>n40_0+n40_1+n40_2 && i<=n40_0+n40_1+n40_2+n40_3) {count6_40 = 3;}
+                    else if(i>n40_0+n40_1+n40_2+n40_3 && i<=n40_0+n40_1+n40_2+n40_3+n40_4) {count6_40 = 4;}
+                    else if(i>n40_0+n40_1+n40_2+n40_3+n40_4 && i<=n40_0+n40_1+n40_2+n40_3+n40_4+n40_5) {count6_40 = 5;}
+                    else if(i>n40_0+n40_1+n40_2+n40_3+n40_4+n40_5) {count6_40 = 6;}
+
+                    if(count6_1+count6_10+count6_20+count6_30+count6_40 > 6) {
+                        while (count6_1 + count6_10 + count6_20 + count6_30 + count6_40 == 6) {
+                            _random = new Random();
+                            i = _random.nextInt(n40_0+n40_1+n40_2+n40_3+n40_4+n40_5+n40_6) + 1;
+                            if (i <= n40_0) {count6_40 = 0;}
+                            else if(i>n40_0 && i<=n40_0+n40_1) {count6_40 = 1;}
+                            else if(i>n40_0+n40_1 && i<=n40_0+n40_1+n40_2) {count6_40 = 2;}
+                            else if(i>n40_0+n40_1+n40_2 && i<=n40_0+n40_1+n40_2+n40_3) {count6_40 = 3;}
+                            else if(i>n40_0+n40_1+n40_2+n40_3 && i<=n40_0+n40_1+n40_2+n40_3+n40_4) {count6_40 = 4;}
+                            else if(i>n40_0+n40_1+n40_2+n40_3+n40_4 && i<=n40_0+n40_1+n40_2+n40_3+n40_4+n40_5) {count6_40 = 5;}
+                            else if(i>n40_0+n40_1+n40_2+n40_3+n40_4+n40_5) {count6_40 = 6;}
+                        }
+                    }
+
+                    break;
+            }
+            set.add(j);
+            if(set.size() == 5 )
+            {
+                if(count6_1+count6_10+count6_20+count6_30+count6_40 != 6)
+                {
+                    set.clear();
+                }
+            }
+        }
+
+        Map<String,Integer> totalCount = new HashMap<>();
+        totalCount.put("1", count6_1);     totalCount.put("10", count6_10);     totalCount.put("20", count6_20);
+        totalCount.put("30", count6_30);     totalCount.put("40", count6_40);
+
+        return totalCount;
     }
 
     private void ButtonEffect()
