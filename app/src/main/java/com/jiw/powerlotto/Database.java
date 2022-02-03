@@ -83,6 +83,19 @@ public class Database {
         }
     }
 
+    public void UpdateQRCheckData(String _url, String _result)
+    {
+        try {
+            String insert = "UPDATE " + DB_QRCHECK_TABLENAME + " SET" +
+                    " result = '" + _result + "' WHERE url = '" + _url + "'";
+            mSqliteDB.execSQL(insert);
+        }
+        catch (SQLiteException ex)
+        {
+            Log.d(TAG,ex.toString());
+        }
+    }
+
     public void InsertPreviewData(int _drwNo, String _no1, String _no2, String _no3,
                                   String _no4, String _no5, String _no6, String _bonus)
     {

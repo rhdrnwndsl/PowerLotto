@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,6 +102,85 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void DBUpdate()
+    {
+        String [] data = powerSDK.SelectData(Database.DB_QRCHECK_TABLENAME); /* sqlite 에서 데이터 가져오기 */
+
+        String [] data1 = powerSDK.SelectData(Database.DB_ALLCOMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
+        String[] tmp1 = new String[]{};
+        if(data1!=null)
+        {
+            for(String n:data1)
+            {
+                tmp1 = n.split(",");
+                break;
+            }
+        }
+
+        if(data!=null)
+        {
+            for(String n:data)
+            {
+                String[] tmp = n.split("\\^");
+                ListModel listModel = ListModel.build(tmp[0], tmp[1]);
+                listModel.print();
+                if(!listModel.isCheck().equals("1"))
+                {
+                    if(Integer.parseInt(listModel.getRound()) <= Integer.parseInt(tmp1[0]))
+                    {
+                        //여기서 다시 서버와 비교해서 업데이트 한다
+
+                        try {
+                            getServerData(tmp[0]);
+                        } catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            Intent intent = new Intent(_ctx, MenuActivity.class);
+            startActivity(intent);
+            finish();
+        }, 1000);
+    }
+
+    private void getServerData(String url)
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        final String finalUrl = url;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Document serverDoc = Jsoup.parse(response);
+                        String result = serverDoc.getElementById("container").html();
+
+                        // 스크랩핑 결과 데이터 로그로 표시
+                        Log.e(TAG, "onResponse: " + result);
+
+                        // 스크랩핑 된 데이터를 목적에 맞게 파싱 후 로그로 표시
+                        ListModel listModel = ListModel.build(finalUrl, result);
+                        listModel.print();
+
+                        // 리스트에 해당 항목 추가
+                        powerSDK.UpdateQRCheckData(finalUrl,result);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, error.getMessage());
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+
     private void All_Preview_Number(int d)
     {
         StringRequest request = new StringRequest(Request.Method.GET, url + String.valueOf(d), new Response.Listener<String>()
@@ -110,20 +193,14 @@ public class MainActivity extends AppCompatActivity {
                 if (response.contains("fail"))
                 {
                     loadingDialog.dismisDialog();
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        Intent intent = new Intent(_ctx, MenuActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }, 1000);
+                    DBUpdate();
+
                     return;
                 }
                 if (jsonObject == null) {
                     loadingDialog.dismisDialog();
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        Intent intent = new Intent(_ctx, MenuActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }, 1000);
+                    DBUpdate();
+
                     return;
                 }
 

@@ -203,7 +203,7 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         FindCombine();
         Map<String,Integer> _tmpMap = new HashMap<>();
         _tmpMap = RandomCountSplit();
-        while(adapter.m_list_number_reader.size() < 1 )
+        while(adapter.m_list_number_reader.size() < 2 )
         {
             NumberSet(finalMax,_tmpMap);
             try
@@ -217,7 +217,7 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 
         NotBonusInit();
 
-        Top20Init();
+//        Top20Init();
 
         listview.setAdapter(adapter);
         ButtonEffect();
@@ -325,7 +325,7 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         Map<String,Integer> _tmpMap = new HashMap<>();
         _tmpMap = RandomCountSplit();
         int _mpaCount = 1;
-        while(adapter.m_list_number_reader.size() < 4 )
+        while(adapter.m_list_number_reader.size() < 5 )
         {
             if(_mpaCount != adapter.m_list_number_reader.size())
             {
@@ -1150,78 +1150,138 @@ public class NumberGeneratorActivity extends AppCompatActivity {
     {
         int _put = 0;
 
-        _put = SwitchMap.get("." + val1 + "," + val2 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + ".");
-        SwitchMap.put("." + val1 + "," + val2 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val2 + "," + val3 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + "," + val3 + ".");
+        SwitchMap.put("." + val1 + "," + val2 + "," + val3 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val1 + "," + val3 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val3 + ".");
-        SwitchMap.put("." + val1 + "," + val3 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val2 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + "," + val4 + ".");
+        SwitchMap.put("." + val1 + "," + val2 + "," + val4 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val1 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val4 + ".");
-        SwitchMap.put("." + val1 + "," + val4 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val2 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + "," + val5 + ".");
+        SwitchMap.put("." + val1 + "," + val2 + "," + val5 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val1 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val5 + ".");
-        SwitchMap.put("." + val1 + "," + val5 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val2 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + "," + val6 + ".");
+        SwitchMap.put("." + val1 + "," + val2 + "," + val6 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val1 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val6 + ".");
-        SwitchMap.put("." + val1 + "," + val6 + ".", _put + 1);
-
-        _put = SwitchMap.get("." + val1 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val1 + "," + valBonus + ".");
-        SwitchMap.put("." + val1 + "," + valBonus + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val2 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + "," + valBonus + ".");
+        SwitchMap.put("." + val1 + "," + val2 + "," + valBonus + ".", _put + 1);
 
         /***************************************************************************/
 
-        _put = SwitchMap.get("." + val2 + "," + val3 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val3 + ".");
-        SwitchMap.put("." + val2 + "," + val3 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val3 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val3 + "," + val4 + ".");
+        SwitchMap.put("." + val1 + "," + val3 + "," + val4 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val2 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val4 + ".");
-        SwitchMap.put("." + val2 + "," + val4 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val3 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val3 + "," + val5 + ".");
+        SwitchMap.put("." + val1 + "," + val3 + "," + val5 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val2 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val5 + ".");
-        SwitchMap.put("." + val2 + "," + val5 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val3 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val3 + "," + val6 + ".");
+        SwitchMap.put("." + val1 + "," + val3 + "," + val6 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val2 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val6 + ".");
-        SwitchMap.put("." + val2 + "," + val6 + ".", _put + 1);
-
-        _put = SwitchMap.get("." + val2 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val2 + "," + valBonus + ".");
-        SwitchMap.put("." + val2 + "," + valBonus + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val3 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val3 + "," + valBonus + ".");
+        SwitchMap.put("." + val1 + "," + val3 + "," + valBonus + ".", _put + 1);
 
         /***************************************************************************/
 
-        _put = SwitchMap.get("." + val3 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val4 + ".");
-        SwitchMap.put("." + val3 + "," + val4 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val4 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val4 + "," + val5 + ".");
+        SwitchMap.put("." + val1 + "," + val4 + "," + val5 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val3 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val5 + ".");
-        SwitchMap.put("." + val3 + "," + val5 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val4 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val4 + "," + val6 + ".");
+        SwitchMap.put("." + val1 + "," + val4 + "," + val6 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val3 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val6 + ".");
-        SwitchMap.put("." + val3 + "," + val6 + ".", _put + 1);
-
-        _put = SwitchMap.get("." + val3 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val3 + "," + valBonus + ".");
-        SwitchMap.put("." + val3 + "," + valBonus + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val4 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val4 + "," + valBonus + ".");
+        SwitchMap.put("." + val1 + "," + val4 + "," + valBonus + ".", _put + 1);
 
         /***************************************************************************/
 
-        _put = SwitchMap.get("." + val4 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val4 + "," + val5 + ".");
-        SwitchMap.put("." + val4 + "," + val5 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val5 + "," + val6 + ".");
+        SwitchMap.put("." + val1 + "," + val5 + "," + val6 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val4 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val4 + "," + val6 + ".");
-        SwitchMap.put("." + val4 + "," + val6 + ".", _put + 1);
-
-        _put = SwitchMap.get("." + val4 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val4 + "," + valBonus + ".");
-        SwitchMap.put("." + val4 + "," + valBonus + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val5 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val5 + "," + valBonus + ".");
+        SwitchMap.put("." + val1 + "," + val5 + "," + valBonus + ".", _put + 1);
 
         /***************************************************************************/
 
-        _put = SwitchMap.get("." + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val5 + "," + val6 + ".");
-        SwitchMap.put("." + val5 + "," + val6 + ".", _put + 1);
-
-        _put = SwitchMap.get("." + val5 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val5 + "," + valBonus + ".");
-        SwitchMap.put("." + val5 + "," + valBonus + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val6 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val6 + "," + valBonus + ".");
+        SwitchMap.put("." + val1 + "," + val6 + "," + valBonus + ".", _put + 1);
 
         /***************************************************************************/
 
-        _put = SwitchMap.get("." + val6 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val6 + "," + valBonus + ".");
-        SwitchMap.put("." + val6 + "," + valBonus + ".", _put + 1);
+        _put = SwitchMap.get("." + val2 + "," + val3 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val3 + "," + val4 + ".");
+        SwitchMap.put("." + val2 + "," + val3 + "," + val4 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val3 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val3 + "," + val5 + ".");
+        SwitchMap.put("." + val2 + "," + val3 + "," + val5 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val3 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val3 + "," + val6 + ".");
+        SwitchMap.put("." + val2 + "," + val3 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val3 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val3 + "," + valBonus + ".");
+        SwitchMap.put("." + val2 + "," + val3 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val2 + "," + val4 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val4 + "," + val5 + ".");
+        SwitchMap.put("." + val2 + "," + val4 + "," + val5 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val4 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val4 + "," + val6 + ".");
+        SwitchMap.put("." + val2 + "," + val4 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val4 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val4 + "," + valBonus + ".");
+        SwitchMap.put("." + val2 + "," + val4 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val2 + "," + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val5 + "," + val6 + ".");
+        SwitchMap.put("." + val2 + "," + val5 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val5 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val5 + "," + valBonus + ".");
+        SwitchMap.put("." + val2 + "," + val5 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val2 + "," + val6 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val6 + "," + valBonus + ".");
+        SwitchMap.put("." + val2 + "," + val6 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val3 + "," + val4 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val4 + "," + val5 + ".");
+        SwitchMap.put("." + val3 + "," + val4 + "," + val5 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val3 + "," + val4 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val4 + "," + val6 + ".");
+        SwitchMap.put("." + val3 + "," + val4 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val3 + "," + val4 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val4 + "," + valBonus + ".");
+        SwitchMap.put("." + val3 + "," + val4 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val3 + "," + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val5 + "," + val6 + ".");
+        SwitchMap.put("." + val3 + "," + val5 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val3 + "," + val5 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val5 + "," + valBonus + ".");
+        SwitchMap.put("." + val3 + "," + val5 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val3 + "," + val6 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val6 + "," + valBonus + ".");
+        SwitchMap.put("." + val3 + "," + val6 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val4 + "," + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val4 + "," + val5 + "," + val6 + ".");
+        SwitchMap.put("." + val4 + "," + val5 + "," + val6 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val4 + "," + val5 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val4 + "," + val5 + "," + valBonus + ".");
+        SwitchMap.put("." + val4 + "," + val5 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val4 + "," + val6 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val4 + "," + val6 + "," + valBonus + ".");
+        SwitchMap.put("." + val4 + "," + val6 + "," + valBonus + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val5 + "," + val6 + "," + valBonus + ".") == null ? 0:SwitchMap.get("." + val5 + "," + val6 + "," + valBonus + ".");
+        SwitchMap.put("." + val5 + "," + val6 + "," + valBonus + ".", _put + 1);
 
     }
 
@@ -1229,62 +1289,83 @@ public class NumberGeneratorActivity extends AppCompatActivity {
     {
         int _put = 0;
 
-        _put = SwitchMap.get("." + val1 + "," + val2 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + ".");
-        SwitchMap.put("." + val1 + "," + val2 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val2 + "," + val3 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + "," + val3 + ".");
+        SwitchMap.put("." + val1 + "," + val2 + "," + val3 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val1 + "," + val3 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val3 + ".");
-        SwitchMap.put("." + val1 + "," + val3 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val2 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + "," + val4 + ".");
+        SwitchMap.put("." + val1 + "," + val2 + "," + val4 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val1 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val4 + ".");
-        SwitchMap.put("." + val1 + "," + val4 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val2 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + "," + val5 + ".");
+        SwitchMap.put("." + val1 + "," + val2 + "," + val5 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val1 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val5 + ".");
-        SwitchMap.put("." + val1 + "," + val5 + ".", _put + 1);
-
-        _put = SwitchMap.get("." + val1 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val6 + ".");
-        SwitchMap.put("." + val1 + "," + val6 + ".", _put + 1);
-
+        _put = SwitchMap.get("." + val1 + "," + val2 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val2 + "," + val6 + ".");
+        SwitchMap.put("." + val1 + "," + val2 + "," + val6 + ".", _put + 1);
 
         /***************************************************************************/
 
-        _put = SwitchMap.get("." + val2 + "," + val3 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val3 + ".");
-        SwitchMap.put("." + val2 + "," + val3 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val3 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val3 + "," + val4 + ".");
+        SwitchMap.put("." + val1 + "," + val3 + "," + val4 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val2 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val4 + ".");
-        SwitchMap.put("." + val2 + "," + val4 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val3 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val3 + "," + val5 + ".");
+        SwitchMap.put("." + val1 + "," + val3 + "," + val5 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val2 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val5 + ".");
-        SwitchMap.put("." + val2 + "," + val5 + ".", _put + 1);
-
-        _put = SwitchMap.get("." + val2 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val6 + ".");
-        SwitchMap.put("." + val2 + "," + val6 + ".", _put + 1);
-
+        _put = SwitchMap.get("." + val1 + "," + val3 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val3 + "," + val6 + ".");
+        SwitchMap.put("." + val1 + "," + val3 + "," + val6 + ".", _put + 1);
 
         /***************************************************************************/
 
-        _put = SwitchMap.get("." + val3 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val4 + ".");
-        SwitchMap.put("." + val3 + "," + val4 + ".", _put + 1);
+        _put = SwitchMap.get("." + val1 + "," + val4 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val4 + "," + val5 + ".");
+        SwitchMap.put("." + val1 + "," + val4 + "," + val5 + ".", _put + 1);
 
-        _put = SwitchMap.get("." + val3 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val5 + ".");
-        SwitchMap.put("." + val3 + "," + val5 + ".", _put + 1);
-
-        _put = SwitchMap.get("." + val3 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val6 + ".");
-        SwitchMap.put("." + val3 + "," + val6 + ".", _put + 1);
-
+        _put = SwitchMap.get("." + val1 + "," + val4 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val4 + "," + val6 + ".");
+        SwitchMap.put("." + val1 + "," + val4 + "," + val6 + ".", _put + 1);
 
         /***************************************************************************/
 
-        _put = SwitchMap.get("." + val4 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val4 + "," + val5 + ".");
-        SwitchMap.put("." + val4 + "," + val5 + ".", _put + 1);
-
-        _put = SwitchMap.get("." + val4 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val4 + "," + val6 + ".");
-        SwitchMap.put("." + val4 + "," + val6 + ".", _put + 1);
-
+        _put = SwitchMap.get("." + val1 + "," + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val1 + "," + val5 + "," + val6 + ".");
+        SwitchMap.put("." + val1 + "," + val5 + "," + val6 + ".", _put + 1);
 
         /***************************************************************************/
 
-        _put = SwitchMap.get("." + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val5 + "," + val6 + ".");
-        SwitchMap.put("." + val5 + "," + val6 + ".", _put + 1);
+        _put = SwitchMap.get("." + val2 + "," + val3 + "," + val4 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val3 + "," + val4 + ".");
+        SwitchMap.put("." + val2 + "," + val3 + "," + val4 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val3 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val3 + "," + val5 + ".");
+        SwitchMap.put("." + val2 + "," + val3 + "," + val5 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val3 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val3 + "," + val6 + ".");
+        SwitchMap.put("." + val2 + "," + val3 + "," + val6 + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val2 + "," + val4 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val4 + "," + val5 + ".");
+        SwitchMap.put("." + val2 + "," + val4 + "," + val5 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val2 + "," + val4 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val4 + "," + val6 + ".");
+        SwitchMap.put("." + val2 + "," + val4 + "," + val6 + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val2 + "," + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val2 + "," + val5 + "," + val6 + ".");
+        SwitchMap.put("." + val2 + "," + val5 + "," + val6 + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val3 + "," + val4 + "," + val5 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val4 + "," + val5 + ".");
+        SwitchMap.put("." + val3 + "," + val4 + "," + val5 + ".", _put + 1);
+
+        _put = SwitchMap.get("." + val3 + "," + val4 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val4 + "," + val6 + ".");
+        SwitchMap.put("." + val3 + "," + val4 + "," + val6 + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val3 + "," + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val3 + "," + val5 + "," + val6 + ".");
+        SwitchMap.put("." + val3 + "," + val5 + "," + val6 + ".", _put + 1);
+
+        /***************************************************************************/
+
+        _put = SwitchMap.get("." + val4 + "," + val5 + "," + val6 + ".") == null ? 0:SwitchMap.get("." + val4 + "," + val5 + "," + val6 + ".");
+        SwitchMap.put("." + val4 + "," + val5 + "," + val6 + ".", _put + 1);
 
     }
 

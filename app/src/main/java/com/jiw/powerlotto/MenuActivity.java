@@ -143,7 +143,13 @@ public class MenuActivity extends AppCompatActivity {
                     if(Integer.parseInt(listModel.getRound()) <= Integer.parseInt(tmp1[0]))
                     {
                         //여기서 다시 서버와 비교해서 업데이트 한다
-                        getServerData(tmp[0]);
+
+                        try {
+                            getServerData(tmp[0]);
+                        } catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
                     } else {
                         // 리스트에 해당 항목 추가
                         listModelArrayList.add(listModel);
@@ -167,7 +173,7 @@ public class MenuActivity extends AppCompatActivity {
     private void getServerData(String url)
     {
         RequestQueue queue = Volley.newRequestQueue(this);
-
+        ListView listView = findViewById(R.id.list_menu_view);
         final String finalUrl = url;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -186,6 +192,8 @@ public class MenuActivity extends AppCompatActivity {
                         // 리스트에 해당 항목 추가
                         listModelArrayList.add(listModel);
                         listAdapter.notifyDataSetChanged();
+                        mPowerSDK.UpdateQRCheckData(finalUrl,result);
+                        listView.setAdapter(listAdapter);
                     }
                 }, new Response.ErrorListener() {
             @Override
