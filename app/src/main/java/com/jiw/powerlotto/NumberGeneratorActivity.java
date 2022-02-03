@@ -417,69 +417,67 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         int i = 0;
         int tmp1=0,tmp10=0,tmp20=0,tmp30=0,tmp40=0;
         List<Integer> tmpi = new ArrayList<Integer>();
-        Random _random = new Random();
-        i = _random.nextInt(_max) + 1;
-        i = SwitchNumber(i);
-        if(i <= 10)
-        {
-            tmp1++;
-        }
-        else if(i >10 && i <= 20)
-        {
-            tmp10++;
-        }
-        else if(i >20 && i <= 30)
-        {
-            tmp20++;
-        }
-        else if(i >30 && i <= 40)
-        {
-            tmp30++;
-        }
-        else if(i >40)
-        {
-            tmp40++;
-        }
 
-        if(_countMap.get("1") < tmp1)
-        {
-            return;
-        }
-        else if(_countMap.get("10") < tmp10)
-        {
-            return;
-        }
-        else if(_countMap.get("20") < tmp20)
-        {
-            return;
-        }
-        else if(_countMap.get("30") < tmp30)
-        {
-            return;
-        }
-        else if(_countMap.get("40") < tmp40)
-        {
-            return;
-        }
-        tmpi.add(i);
-        set.add(i);
+//        if(i <= 10)
+//        {
+//            tmp1++;
+//        }
+//        else if(i >10 && i <= 20)
+//        {
+//            tmp10++;
+//        }
+//        else if(i >20 && i <= 30)
+//        {
+//            tmp20++;
+//        }
+//        else if(i >30 && i <= 40)
+//        {
+//            tmp30++;
+//        }
+//        else if(i >40)
+//        {
+//            tmp40++;
+//        }
+//
+//        if(_countMap.get("1") < tmp1)
+//        {
+//            return;
+//        }
+//        else if(_countMap.get("10") < tmp10)
+//        {
+//            return;
+//        }
+//        else if(_countMap.get("20") < tmp20)
+//        {
+//            return;
+//        }
+//        else if(_countMap.get("30") < tmp30)
+//        {
+//            return;
+//        }
+//        else if(_countMap.get("40") < tmp40)
+//        {
+//            return;
+//        }
+//        tmpi.add(i);
+//        set.add(i);
 
         while (set.size() < 6) {
-//            Random _random = new Random();
-//            i = _random.nextInt(_max) + 1;
-//            i = SwitchNumber(i);
+            Random _random = new Random();
+            i = _random.nextInt(_max) + 1;
+            i = SwitchNumber(i);
 //            set.add(i);
             int max = 0;
             Map<String, Integer> _tmpMap = new HashMap<>();
             for ( String _key:SwitchMap.keySet()) {
-                if(_key.contains("." + String.valueOf(i) + ",") || _key.contains("," + String.valueOf(i) + "."))
+                if(_key.contains("." + String.valueOf(i) + ",") || _key.contains("," + String.valueOf(i) + ",") || _key.contains("," + String.valueOf(i) + "."))
                 {
-                    String _tmp = _key.replace("." + String.valueOf(i) + "," , "");
-                    _tmp = _tmp.replace("," + String.valueOf(i) + "." , "");
-                    _tmp = _tmp.replace("," + String.valueOf(i),"");
-                    _tmp = _tmp.replace("." + String.valueOf(i),"");
-                    _tmpMap.put(_tmp, SwitchMap.get(_key));
-
+//                    String _tmp = _key.replace("." + String.valueOf(i) + "," , "");
+//                    _tmp = _tmp.replace("," + String.valueOf(i) + "." , "");
+//                    _tmp = _tmp.replace("," + String.valueOf(i),"");
+//                    _tmp = _tmp.replace("." + String.valueOf(i),"");
+//                    _tmpMap.put(_tmp, SwitchMap.get(_key));
+                    _tmpMap.put(_key, SwitchMap.get(_key));
                 }
             }
 
@@ -504,75 +502,80 @@ public class NumberGeneratorActivity extends AppCompatActivity {
                 if (i <= _tmpCount)
                 {
                     String tmp = entry.getKey();
-                    tmp = tmp.replace(",","");
                     tmp = tmp.replace(".","");
-                    i = Integer.valueOf(tmp);
+                    String[] tmp2 = tmp.split(",");
+                    i = Integer.valueOf(tmp2[0]);
+                    set.add(i);
+                    i = Integer.valueOf(tmp2[1]);
+                    set.add(i);
+                    i = Integer.valueOf(tmp2[2]);
+                    set.add(i);
                     break;
                 }
             }
 
-            List<Integer> list = new ArrayList<>(set);
-            int t1=0,t10=0,t20=0,t30=0,t40=0;
-            for(int z= 0; z<list.size(); z++)
-            {
-                if(list.get(z) <= 10){t1++; }
-                else if(list.get(z) >10 && list.get(z) <= 20){t10++; }
-                else if(list.get(z) >20 && list.get(z) <= 30){t20++; }
-                else if(list.get(z) >30 && list.get(z) <= 40){t30++; }
-                else if(list.get(z) >40){t40++; }
+//            List<Integer> list = new ArrayList<>(set);
+//            int t1=0,t10=0,t20=0,t30=0,t40=0;
+//            for(int z= 0; z<list.size(); z++)
+//            {
+//                if(list.get(z) <= 10){t1++; }
+//                else if(list.get(z) >10 && list.get(z) <= 20){t10++; }
+//                else if(list.get(z) >20 && list.get(z) <= 30){t20++; }
+//                else if(list.get(z) >30 && list.get(z) <= 40){t30++; }
+//                else if(list.get(z) >40){t40++; }
+//
+//            }
+//
+//
+//            if(i <= 10)
+//            {
+//
+//                tmp1 = t1+1;
+//                if(_countMap.get("1") < tmp1)
+//                {
+//                    continue;
+//                }
+//            }
+//            else if(i >10 && i <= 20)
+//            {
+//
+//                tmp10 = t10+1;
+//                if(_countMap.get("10") < tmp10)
+//                {
+//                    continue;
+//                }
+//            }
+//            else if(i >20 && i <= 30)
+//            {
+//
+//                tmp20 = t20+1;
+//                if(_countMap.get("20") < tmp20)
+//                {
+//                    continue;
+//                }
+//            }
+//            else if(i >30 && i <= 40)
+//            {
+//
+//                tmp30=t30+1;
+//                if(_countMap.get("30") < tmp30)
+//                {
+//                    continue;
+//                }
+//            }
+//            else if(i >40)
+//            {
+//
+//                tmp40=t40+1;
+//                if(_countMap.get("40") < tmp40)
+//                {
+//                    continue;
+//                }
+//            }
 
-            }
-
-
-            if(i <= 10)
-            {
-
-                tmp1 = t1+1;
-                if(_countMap.get("1") < tmp1)
-                {
-                    continue;
-                }
-            }
-            else if(i >10 && i <= 20)
-            {
-
-                tmp10 = t10+1;
-                if(_countMap.get("10") < tmp10)
-                {
-                    continue;
-                }
-            }
-            else if(i >20 && i <= 30)
-            {
-
-                tmp20 = t20+1;
-                if(_countMap.get("20") < tmp20)
-                {
-                    continue;
-                }
-            }
-            else if(i >30 && i <= 40)
-            {
-
-                tmp30=t30+1;
-                if(_countMap.get("30") < tmp30)
-                {
-                    continue;
-                }
-            }
-            else if(i >40)
-            {
-
-                tmp40=t40+1;
-                if(_countMap.get("40") < tmp40)
-                {
-                    continue;
-                }
-            }
 
 
 
-            set.add(i);
         }
 
         List<Integer> list = new ArrayList<>(set);
@@ -585,50 +588,50 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         int no5 = list.get(4);
         int no6 = list.get(5);
 
-        tmp1=0;tmp10=0;tmp20=0;tmp30=0;tmp40=0;
-        for(int j =0; j<6; j++)
-        {
-            if(list.get(j) <= 10)
-            {
-                tmp1++;
-            }
-            else if(list.get(j) >10 && list.get(j) <= 20)
-            {
-                tmp10++;
-            }
-            else if(list.get(j) >20 && list.get(j) <= 30)
-            {
-                tmp20++;
-            }
-            else if(list.get(j) >30 && list.get(j) <= 40)
-            {
-                tmp30++;
-            }
-            else if(list.get(j) >40)
-            {
-                tmp40++;
-            }
-        }
-        if(_countMap.get("1") != tmp1)
-        {
-            return;
-        }
-        else if(_countMap.get("10") != tmp10)
-        {
-            return;
-        }
-        else if(_countMap.get("20") != tmp20)
-        {
-            return;
-        }
-        else if(_countMap.get("30") != tmp30)
-        {
-            return;
-        }
-        else if(_countMap.get("40") != tmp40)
-        {
-            return;
-        }
+//        tmp1=0;tmp10=0;tmp20=0;tmp30=0;tmp40=0;
+//        for(int j =0; j<6; j++)
+//        {
+//            if(list.get(j) <= 10)
+//            {
+//                tmp1++;
+//            }
+//            else if(list.get(j) >10 && list.get(j) <= 20)
+//            {
+//                tmp10++;
+//            }
+//            else if(list.get(j) >20 && list.get(j) <= 30)
+//            {
+//                tmp20++;
+//            }
+//            else if(list.get(j) >30 && list.get(j) <= 40)
+//            {
+//                tmp30++;
+//            }
+//            else if(list.get(j) >40)
+//            {
+//                tmp40++;
+//            }
+//        }
+//        if(_countMap.get("1") != tmp1)
+//        {
+//            return;
+//        }
+//        else if(_countMap.get("10") != tmp10)
+//        {
+//            return;
+//        }
+//        else if(_countMap.get("20") != tmp20)
+//        {
+//            return;
+//        }
+//        else if(_countMap.get("30") != tmp30)
+//        {
+//            return;
+//        }
+//        else if(_countMap.get("40") != tmp40)
+//        {
+//            return;
+//        }
 
         final String _msg = "번호 생성 : " + no1 + ", " + no2 + ", " + no3 + ", " + no4 + ", " + no5 + ", " + no6;
         Log.d(TAG, _msg);
