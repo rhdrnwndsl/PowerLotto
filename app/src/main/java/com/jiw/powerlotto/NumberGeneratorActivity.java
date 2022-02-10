@@ -63,6 +63,9 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 
     Map<String, Integer> SwitchMap = new HashMap<>();
 
+    private int mTop20Count = 0;
+    private List<Map.Entry<String, Integer>> mTop20List;
+
     private InterstitialAd mInterstitialAd;
     private String AD_UNIT_ID = "ca-app-pub-9992643111661420/6492371137";   //실제
 //    private String AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"; //테스트
@@ -205,6 +208,7 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         _tmpMap = RandomCountSplit();
         while(adapter.m_list_number_reader.size() < 2 )
         {
+            Top20Init();
             NumberSet(finalMax,_tmpMap);
             try
             {
@@ -216,9 +220,6 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         }
 
         NotBonusInit();
-
-//        Top20Init();
-
         listview.setAdapter(adapter);
         ButtonEffect();
 
@@ -394,19 +395,9 @@ public class NumberGeneratorActivity extends AppCompatActivity {
             _count++;
         }
 
-        FindCombineNotBonus();
+        mTop20Count = top20Count;
+        mTop20List = entryList;
 
-        while(adapter.m_list_number_reader.size() < 5 )
-        {
-            NumberSet20(top20Count, entryList);
-            try
-            {
-                Thread.sleep(200);
-            } catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-        }
     }
 
 
@@ -464,9 +455,23 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 
         while (set.size() < 6) {
             Random _random = new Random();
-            i = _random.nextInt(_max) + 1;
-            i = SwitchNumber(i);
-//            set.add(i);
+//            i = _random.nextInt(_max) + 1;
+            i = _random.nextInt(mTop20Count) + 1;
+            int __tmpCount = 0;
+            for(Map.Entry<String, Integer> entry : mTop20List){
+                System.out.println("setkey : " + entry.getKey() + ", setvalue : " + entry.getValue());
+                __tmpCount +=  entry.getValue();
+                if (i <= __tmpCount)
+                {
+                    String tmp = entry.getKey();
+                    tmp = tmp.replace(",","");
+                    tmp = tmp.replace(".","");
+                    i = Integer.valueOf(tmp);
+                    break;
+                }
+            }
+//            i = SwitchNumber(i);
+
             int max = 0;
             Map<String, Integer> _tmpMap = new HashMap<>();
             for ( String _key:SwitchMap.keySet()) {
@@ -640,141 +645,6 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 
     }
 
-    private void NumberSet20(int _max, List<Map.Entry<String, Integer>> entryList)
-    {
-        Set<Integer> set = new HashSet<>();
-        int i = 0;
-        Random _random = new Random();
-        i = _random.nextInt(_max) + 1;
-        int _tmpCount = 0;
-        for(Map.Entry<String, Integer> entry : entryList){
-            System.out.println("setkey : " + entry.getKey() + ", setvalue : " + entry.getValue());
-            _tmpCount +=  entry.getValue();
-            if (i <= _tmpCount)
-            {
-                String tmp = entry.getKey();
-                tmp = tmp.replace(",","");
-                tmp = tmp.replace(".","");
-                i = Integer.valueOf(tmp);
-                break;
-            }
-        }
-
-        set.add(i);
-
-        while (set.size() < 6) {
-
-            int max = 0;
-            int _count20 = 0;
-            Map<String, Integer> _tmpMap = new HashMap<>();
-            for ( String _key:SwitchMap.keySet()) {
-                if(_key.contains("." + String.valueOf(i) + ",") || _key.contains("," + String.valueOf(i) + "."))
-                {
-                    if (_count20 == 20)
-                    {
-                        break;
-                    }
-                    String _tmp = _key.replace("." + String.valueOf(i) + "," , "");
-                    _tmp = _tmp.replace("," + String.valueOf(i) + "." , "");
-                    _tmp = _tmp.replace("," + String.valueOf(i),"");
-                    _tmp = _tmp.replace("." + String.valueOf(i),"");
-                    _tmpMap.put(_tmp, SwitchMap.get(_key));
-                    _count20++;
-
-                }
-            }
-
-            List<Map.Entry<String, Integer>> _entryList = new LinkedList<>(_tmpMap.entrySet());
-            _entryList.sort(new Comparator<Map.Entry<String, Integer>>() {
-                @Override
-                public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                    return o2.getValue() - o1.getValue();
-                }
-            });
-            for(Map.Entry<String, Integer> entry : _entryList){
-                System.out.println("tmpkey : " + entry.getKey() + ", tmpvalue : " + entry.getValue());
-                max +=  entry.getValue();
-            }
-
-            _random = new Random();
-            i = _random.nextInt(max) + 1;
-            int _tmptCount = 0;
-            for(Map.Entry<String, Integer> entry : _entryList){
-                System.out.println("setkey : " + entry.getKey() + ", setvalue : " + entry.getValue());
-                _tmptCount +=  entry.getValue();
-                if (i <= _tmptCount)
-                {
-                    String tmp = entry.getKey();
-                    tmp = tmp.replace(",","");
-                    tmp = tmp.replace(".","");
-                    i = Integer.valueOf(tmp);
-                    break;
-                }
-            }
-            set.add(i);
-        }
-
-        List<Integer> list = new ArrayList<>(set);
-        Collections.sort(list);
-        System.out.println(list);
-        int no1 = list.get(0);
-        int no2 = list.get(1);
-        int no3 = list.get(2);
-        int no4 = list.get(3);
-        int no5 = list.get(4);
-        int no6 = list.get(5);
-
-//        if (no5 <= 10)
-//        {
-//            Log.d(TAG, "10이하 5개");
-//            return;
-//        }
-//
-//        else if((no1 > 10 && no1 <= 20) && (no2 > 10 && no2 <= 20) && (no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20) && (no5 > 10 && no5 <= 20))
-//        {
-//            Log.d(TAG, "10초과 20이하 5개");
-//            return;
-//        }
-//        else if((no2 > 10 && no2 <= 20) && (no3 > 10 && no3 <= 20) && (no4 > 10 && no4 <= 20) && (no5 > 10 && no5 <= 20) && (no6 > 10 && no6 <= 20))
-//        {
-//            Log.d(TAG, "10초과 20이하 5개");
-//            return;
-//        }
-//
-//        else if((no1 > 20 && no1 <= 30) && (no2 > 20 && no2 <= 30) && (no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30) && (no5 > 20 && no5 <= 30))
-//        {
-//            Log.d(TAG, "20초과 30이하 5개");
-//            return;
-//        }
-//        else if((no2 > 20 && no2 <= 30) && (no3 > 20 && no3 <= 30) && (no4 > 20 && no4 <= 30) && (no5 > 20 && no5 <= 30) && (no6 > 20 && no6 <= 30))
-//        {
-//            Log.d(TAG, "20초과 30이하 5개");
-//            return;
-//        }
-//
-//        else if((no1 > 30 && no1 <= 40) && (no2 > 30 && no2 <= 40) && (no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40) && (no5 > 30 && no5 <= 40))
-//        {
-//            Log.d(TAG, "30초과 40이하 5개");
-//            return;
-//        }
-//        else if((no2 > 30 && no2 <= 40) && (no3 > 30 && no3 <= 40) && (no4 > 30 && no4 <= 40) && (no5 > 30 && no5 <= 40) && (no6 > 30 && no6 <= 40))
-//        {
-//            Log.d(TAG, "30초과 40이하 5개");
-//            return;
-//        }
-//
-//        else if((no3 > 40) && (no4 > 40) && (no5 > 40) && (no6 > 40))
-//        {
-//            Log.d(TAG, "40초과 4개");
-//            return;
-//        }
-
-        final String _msg = "번호 생성 : " + no1 + ", " + no2 + ", " + no3 + ", " + no4 + ", " + no5 + ", " + no6;
-        Log.d(TAG, _msg);
-
-        adapter.addItem(String.valueOf(no1),String.valueOf(no2),String.valueOf(no3),String.valueOf(no4),String.valueOf(no5),String.valueOf(no6));
-
-    }
 
     private int SwitchNumber(int n)
     {
