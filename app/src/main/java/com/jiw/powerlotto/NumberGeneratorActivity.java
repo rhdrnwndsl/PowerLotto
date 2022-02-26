@@ -203,26 +203,26 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 
         int finalMax = max;
         adapter = new ListNumberGenerateAdapter();
-        FindCombine();
-        Map<String,Integer> _tmpMap = new HashMap<>();
-        _tmpMap = RandomCountSplit();
-        while(adapter.m_list_number_reader.size() < 2 )
-        {
-            Top20Init();
-            NumberSet(finalMax,_tmpMap);
-            try
-            {
-                Thread.sleep(200);
-            } catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        NotBonusInit();
-        listview.setAdapter(adapter);
-        ButtonEffect();
-
+//        FindCombine();
+//        Map<String,Integer> _tmpMap = new HashMap<>();
+//        _tmpMap = RandomCountSplit();
+//        while(adapter.m_list_number_reader.size() < 2 )
+//        {
+//            Top20Init();
+//            NumberSet(finalMax,_tmpMap);
+//            try
+//            {
+//                Thread.sleep(200);
+//            } catch (InterruptedException e)
+//            {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        NotBonusInit();
+//        listview.setAdapter(adapter);
+//        ButtonEffect();
+        CombineAll();
     }
 
     private void NotBonusInit()
@@ -1562,6 +1562,166 @@ public class NumberGeneratorActivity extends AppCompatActivity {
 //        anim1.setRepeatMode(ValueAnimator.REVERSE);
 //        anim1.setRepeatCount(Animation.INFINITE);
 //        anim1.start();
+    }
+
+    public void CombineAll()
+    {
+        String [] data = mPowerSDK.SelectData(Database.DB_ALLCOMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
+
+        int[] arr;
+        int r = 4;
+
+        String comb = "";
+
+
+        if(data!=null)
+        {
+            for(String n:data)
+            {
+                String[] tmp = n.split(",");
+//                adapter.addItem(tmp[0],tmp[1],tmp[2],tmp[3],tmp[4],tmp[5],tmp[6],tmp[7]);
+                arr = new int[]{Integer.parseInt(tmp[1]),
+                        Integer.parseInt(tmp[2]),
+                        Integer.parseInt(tmp[3]),
+                        Integer.parseInt(tmp[4]),
+                        Integer.parseInt(tmp[5]),
+                        Integer.parseInt(tmp[6])};
+                CombinationInit(arr.length,r);
+                Combination(arr,0,0,0);
+                ArrayList<ArrayList<Integer>> result = getResult();
+                for (int i = 0; i < result.size(); i++)
+                {
+                    comb = "";
+                    for (int j=0; j<result.get(i).size(); j++)
+                    {
+                        comb += result.get(i).get(j) + ",";
+                    }
+                    combineMap.put(comb,combineMap.get(comb) == null ? 1: combineMap.get(comb) + 1);
+                }
+            }
+        }
+
+
+        while(adapter.m_list_number_reader.size() < 6 )
+        {
+            Top20Init();
+            CombineNumber();
+            try
+            {
+                Thread.sleep(200);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        listview.setAdapter(adapter);
+        ButtonEffect();
+
+    }
+
+    /**
+     * 조합식 구하기(4개의 숫자)
+     */
+    public void CombineNumber()
+    {
+
+        int max = 0;
+
+        Set<Integer> set = new HashSet<>();
+        List<Map.Entry<String, Integer>> entryList = new LinkedList<>(combineMap.entrySet());
+        entryList.sort(new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return o2.getValue() - o1.getValue();
+            }
+        });
+        for(Map.Entry<String, Integer> entry : entryList){
+            System.out.println("tmpkey : " + entry.getKey() + ", tmpvalue : " + entry.getValue());
+            max +=  entry.getValue();
+        }
+
+        Random _random = new Random();
+        int i = _random.nextInt(max) + 1;
+        int _tmpCount = 0;
+        for(Map.Entry<String, Integer> entry : entryList){
+            System.out.println("setkey : " + entry.getKey() + ", setvalue : " + entry.getValue());
+            _tmpCount +=  entry.getValue();
+            if (i <= _tmpCount)
+            {
+                String tmp = entry.getKey();
+                String[] tmp2 = tmp.split(",");
+                i = Integer.valueOf(tmp2[0]);
+                set.add(i);
+                i = Integer.valueOf(tmp2[1]);
+                set.add(i);
+                i = Integer.valueOf(tmp2[2]);
+                set.add(i);
+                i = Integer.valueOf(tmp2[3]);
+                set.add(i);
+                break;
+            }
+        }
+
+        while (set.size() < 6) {
+            _random = new Random();
+            i = _random.nextInt(mTop20Count) + 1;
+            int __tmpCount = 0;
+            for (Map.Entry<String, Integer> entry : mTop20List) {
+                System.out.println("setkey : " + entry.getKey() + ", setvalue : " + entry.getValue());
+                __tmpCount += entry.getValue();
+                if (i <= __tmpCount) {
+                    String tmp = entry.getKey();
+                    tmp = tmp.replace(",", "");
+                    tmp = tmp.replace(".", "");
+                    i = Integer.valueOf(tmp);
+                    set.add(i);
+                    break;
+                }
+            }
+        }
+
+        List<Integer> list = new ArrayList<>(set);
+        Collections.sort(list);
+        System.out.println(list);
+        int no1 = list.get(0);
+        int no2 = list.get(1);
+        int no3 = list.get(2);
+        int no4 = list.get(3);
+        int no5 = list.get(4);
+        int no6 = list.get(5);
+        final String _msg = "번호 생성 : " + no1 + ", " + no2 + ", " + no3 + ", " + no4 + ", " + no5 + ", " + no6;
+        Log.d(TAG, _msg);
+
+        adapter.addItem(String.valueOf(no1),String.valueOf(no2),String.valueOf(no3),String.valueOf(no4),String.valueOf(no5),String.valueOf(no6));
+
+
+    }
+
+    private Map<String, Integer> combineMap = new HashMap<>();
+    private int n; private int r; private int[] now; // 현재 조합
+    private ArrayList<ArrayList<Integer>> result; // 모든 조합
+    public ArrayList<ArrayList<Integer>> getResult() { return result; }
+    public void CombinationInit(int n, int r)
+    {
+        this.n = n; this.r = r;
+        this.now = new int[r];
+        this.result = new ArrayList<ArrayList<Integer>>();
+    }
+    public void Combination(int[] arr, int depth, int index, int target)
+    {
+        if (depth == r) {
+            ArrayList<Integer> temp = new ArrayList<>();
+            for (int i = 0; i < now.length; i++) {
+                temp.add(arr[now[i]]);
+            }
+            result.add(temp);
+            return;
+        }
+        if (target == n)
+            return;
+        now[index] = target;
+        Combination(arr, depth + 1, index + 1, target + 1);
+        Combination(arr, depth, index, target + 1);
     }
 
     public void loadAd() {
