@@ -1569,7 +1569,7 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         String [] data = mPowerSDK.SelectData(Database.DB_ALLCOMPILENUMBER_TABLENAME); /* sqlite 에서 무결성 검사 데이터 가져오기 */
 
         int[] arr;
-        int r = 4;
+        int r = 3;
 
         String comb = "";
 
@@ -1640,45 +1640,49 @@ public class NumberGeneratorActivity extends AppCompatActivity {
             max +=  entry.getValue();
         }
 
-        Random _random = new Random();
-        int i = _random.nextInt(max) + 1;
-        int _tmpCount = 0;
-        for(Map.Entry<String, Integer> entry : entryList){
-            System.out.println("setkey : " + entry.getKey() + ", setvalue : " + entry.getValue());
-            _tmpCount +=  entry.getValue();
-            if (i <= _tmpCount)
-            {
-                String tmp = entry.getKey();
-                String[] tmp2 = tmp.split(",");
-                i = Integer.valueOf(tmp2[0]);
-                set.add(i);
-                i = Integer.valueOf(tmp2[1]);
-                set.add(i);
-                i = Integer.valueOf(tmp2[2]);
-                set.add(i);
-                i = Integer.valueOf(tmp2[3]);
-                set.add(i);
-                break;
-            }
-        }
-
-        while (set.size() < 6) {
-            _random = new Random();
-            i = _random.nextInt(mTop20Count) + 1;
-            int __tmpCount = 0;
-            for (Map.Entry<String, Integer> entry : mTop20List) {
+        while(set.size()<6)
+        {
+            Random _random = new Random();
+            int i = _random.nextInt(max) + 1;
+            int _tmpCount = 0;
+            for(Map.Entry<String, Integer> entry : entryList){
                 System.out.println("setkey : " + entry.getKey() + ", setvalue : " + entry.getValue());
-                __tmpCount += entry.getValue();
-                if (i <= __tmpCount) {
+                _tmpCount +=  entry.getValue();
+                if (i <= _tmpCount)
+                {
                     String tmp = entry.getKey();
-                    tmp = tmp.replace(",", "");
-                    tmp = tmp.replace(".", "");
-                    i = Integer.valueOf(tmp);
+                    String[] tmp2 = tmp.split(",");
+                    i = Integer.valueOf(tmp2[0]);
                     set.add(i);
+                    i = Integer.valueOf(tmp2[1]);
+                    set.add(i);
+                    i = Integer.valueOf(tmp2[2]);
+                    set.add(i);
+//                i = Integer.valueOf(tmp2[3]);
+//                set.add(i);
                     break;
                 }
             }
         }
+
+
+//        while (set.size() < 6) {
+//            _random = new Random();
+//            i = _random.nextInt(mTop20Count) + 1;
+//            int __tmpCount = 0;
+//            for (Map.Entry<String, Integer> entry : mTop20List) {
+//                System.out.println("setkey : " + entry.getKey() + ", setvalue : " + entry.getValue());
+//                __tmpCount += entry.getValue();
+//                if (i <= __tmpCount) {
+//                    String tmp = entry.getKey();
+//                    tmp = tmp.replace(",", "");
+//                    tmp = tmp.replace(".", "");
+//                    i = Integer.valueOf(tmp);
+//                    set.add(i);
+//                    break;
+//                }
+//            }
+//        }
 
         List<Integer> list = new ArrayList<>(set);
         Collections.sort(list);
