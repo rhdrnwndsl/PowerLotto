@@ -110,6 +110,21 @@ public class ListNumberGenerateAdapter  extends BaseAdapter {
 
     // 아이템 데이터 추가를 위한 함수
     public void addItem(String _no1, String _no2, String _no3, String _no4, String _no5, String _no6) {
+
+        for (int i=0; i<m_list_number_reader.size(); i++)
+        {
+            if (_no1.equals(m_list_number_reader.get(i).GetNumber1()) &&
+                    _no2.equals(m_list_number_reader.get(i).GetNumber2()) &&
+                    _no3.equals(m_list_number_reader.get(i).GetNumber3()) &&
+                    _no4.equals(m_list_number_reader.get(i).GetNumber4()) &&
+                    _no5.equals(m_list_number_reader.get(i).GetNumber5()) &&
+                    _no6.equals(m_list_number_reader.get(i).GetNumber6()))
+            {
+                return;
+            }
+
+        }
+
         ListNumberGenerateReader item = new ListNumberGenerateReader();
         item.ListNumberGenerateReader(_no1, _no2,_no3,_no4,_no5,_no6);
 

@@ -1596,7 +1596,7 @@ public class NumberGeneratorActivity extends AppCompatActivity {
                     {
                         comb += result.get(i).get(j) + ",";
                     }
-                    combineMap.put(comb,combineMap.get(comb) == null ? 1: combineMap.get(comb) + 1);
+                    combineMap.put(comb,combineMap.get(comb) == null ? 1: combineMap.get(comb) + combineMap.get(comb));
                 }
             }
         }
@@ -1695,7 +1695,6 @@ public class NumberGeneratorActivity extends AppCompatActivity {
         int no6 = list.get(5);
         final String _msg = "번호 생성 : " + no1 + ", " + no2 + ", " + no3 + ", " + no4 + ", " + no5 + ", " + no6;
         Log.d(TAG, _msg);
-
         adapter.addItem(String.valueOf(no1),String.valueOf(no2),String.valueOf(no3),String.valueOf(no4),String.valueOf(no5),String.valueOf(no6));
 
 
